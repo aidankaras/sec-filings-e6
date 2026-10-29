@@ -1,6 +1,6 @@
 # Arbiter
 
-[![CI](https://github.com/aidankaras/arbiter/actions/workflows/ci.yml/badge.svg)](https://github.com/aidankaras/arbiter/actions/workflows/ci.yml)
+[![CI](https://github.com/aidankaras/sec-filings-e6/actions/workflows/ci.yml/badge.svg)](https://github.com/aidankaras/sec-filings-e6/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![Python 3.12](https://img.shields.io/badge/python-3.12-blue.svg)](pyproject.toml)
 
@@ -61,7 +61,7 @@ trading only, always.
 ## Quickstart
 
 ```bash
-git clone https://github.com/aidankaras/arbiter && cd arbiter
+git clone https://github.com/aidankaras/sec-filings-e6 && cd sec-filings-e6
 uv sync --all-extras
 cp .env.example .env                        # SEC_USER_AGENT, plus Alpaca keys for prices
 uv run arbiter ingest 2026-08-10            # one day of filings -> events
