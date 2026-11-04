@@ -1,12 +1,12 @@
-# Arbiter
+# SEC filings: LLM agent vs conventional model
 
 [![CI](https://github.com/aidankaras/sec-filings-e6/actions/workflows/ci.yml/badge.svg)](https://github.com/aidankaras/sec-filings-e6/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![Python 3.12](https://img.shields.io/badge/python-3.12-blue.svg)](pyproject.toml)
 
 **Does an LLM agent beat a conventional model at forecasting equity moves from SEC
-filings, when both see exactly the same information?** Arbiter is built to
-measure that. It freezes each filing into an immutable, content-hashed evidence
+filings, when both see exactly the same information?** This repository is built
+to measure that. It freezes each filing into an immutable, content-hashed evidence
 packet stamped with the filing's acceptance time, so that every forecasting
 approach can be scored on byte-identical inputs.
 
@@ -102,7 +102,7 @@ the arbiter's book will be mirrored to the paper brokerage account.
 ## Why the evidence packet is the center of the design
 
 A comparison between approaches is only meaningful if the approaches saw the same
-thing. Arbiter enforces that structurally rather than by convention.
+thing. The pipeline enforces that structurally rather than by convention.
 
 Each event produces exactly one **evidence packet**: an immutable, content-hashed
 object stamped with the filing's EDGAR acceptance time. It contains the
