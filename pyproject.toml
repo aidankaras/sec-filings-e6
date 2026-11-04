@@ -9,19 +9,19 @@ authors = [{ name = "Aidan Karas" }]
 keywords = ["sec-filings", "event-study", "forecasting", "llm-agents", "evaluation"]
 
 dependencies = [
-    "pydantic>=2.9",
-    "pydantic-settings>=2.6",
-    "sqlalchemy>=2.0.36",
-    "alembic>=1.14",
-    "psycopg[binary]>=3.2",
+    "pydantic>=2.14.2",
+    "pydantic-settings>=2.16.2",
+    "sqlalchemy>=2.1.6",
+    "alembic>=1.20.1",
+    "psycopg[binary]>=3.3.6",
     "httpx>=0.28",
-    "tenacity>=9.0",
-    "typer>=0.15",
-    "pandas>=2.2",
-    "numpy>=2.1",
+    "tenacity>=9.2.1",
+    "typer>=0.27.3",
+    "pandas>=3.1.0",
+    "numpy>=2.5.4",
     "scipy>=1.14",
-    "pyarrow>=18.0",
-    "edgartools>=5.61.1",
+    "pyarrow>=26.0.0",
+    "edgartools>=5.62.1",
     # Imported unconditionally by the baseline arm, which ships; a base install
     # without it cannot run `arbiter report`.
     "scikit-learn>=1.6",
@@ -29,22 +29,22 @@ dependencies = [
 
 [project.optional-dependencies]
 api = [
-    "fastapi>=0.115",
-    "uvicorn[standard]>=0.32",
+    "fastapi>=0.162.0",
+    "uvicorn[standard]>=0.54.0",
     "jinja2>=3.1",
 ]
 llm = [
-    "anthropic>=0.40",
-    "claude-agent-sdk>=0.1",
-    "openai>=1.57",
+    "anthropic>=2.3.0",
+    "claude-agent-sdk>=0.2.176",
+    "openai>=3.42.0",
     "langgraph>=0.2.50",
 ]
 ml = [
     "xgboost>=2.1",
-    "torch>=2.5",
-    "transformers>=4.47",
-    "peft>=0.14",
-    "sentence-transformers>=3.3",
+    "torch>=2.15.0",
+    "transformers>=5.22.1",
+    "peft>=0.21.2",
+    "sentence-transformers>=6.2.0",
 ]
 broker = ["alpaca-py>=0.33"]
 # Embedded Postgres for running the append-only ledger on a machine without a
@@ -53,12 +53,12 @@ ledger = ["pgserver>=0.1.4"]
 
 [dependency-groups]
 dev = [
-    "pytest>=8.3",
-    "pytest-asyncio>=0.25",
+    "pytest>=9.2.0",
+    "pytest-asyncio>=1.4.1.post1",
     "pytest-cov>=6.0",
-    "ruff>=0.8",
+    "ruff>=0.17.3",
     "pyright>=1.1.390",
-    "pre-commit>=4.0",
+    "pre-commit>=4.7.0",
     "pip-audit>=2.7",
     "pgserver>=0.1.4",
 ]
