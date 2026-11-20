@@ -90,6 +90,8 @@ packages = ["src/arbiter"]
 line-length = 96
 target-version = "py312"
 src = ["src", "tests"]
+# Vendored /git-signoff skill (jerrylin96/git-signoff): third-party code kept byte-identical, not linted here.
+extend-exclude = [".claude/skills/git-signoff"]
 
 [tool.ruff.lint]
 select = [
