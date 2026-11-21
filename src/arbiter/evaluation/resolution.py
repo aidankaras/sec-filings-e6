@@ -2,8 +2,9 @@
 
 A label is only meaningful if it measures what a position could actually have
 captured, so the window is defined by what a decision made after the filing
-could trade: entry at the first open available afterwards, exit at the close of
-the horizon's final session.
+could trade in a nightly batch after the close: entry at the open of the first
+session after the filing's Eastern date, exit at the close of the horizon's
+final session.
 
 Each label records the benchmark it was measured against. Sector classification
 is a judgment that may be revised, and a label that did not name its benchmark
@@ -71,10 +72,12 @@ class ResolutionRequest:
 def entry_sessions(bars: list[Bar], as_of: datetime) -> list[Bar]:
     """Return the sessions an event could have traded, entry first.
 
-    A session is tradeable only if it began after the filing became public. The
-    bars therefore act as the trading calendar: whichever sessions the exchange
-    actually held are the ones that count, so holidays and early closes need no
-    separate table.
+    A session is tradeable only if its bar is stamped after the filing became
+    public. Daily bars are stamped at midnight Eastern, so a filing accepted at
+    any time on a date, including before that day's open, enters at the next
+    session. The bars also act as the trading calendar: whichever sessions the
+    exchange actually held are the ones that count, so holidays and early closes
+    need no separate table.
     """
     return [bar for bar in bars if bar.timestamp > as_of]
 

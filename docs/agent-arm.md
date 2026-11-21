@@ -154,9 +154,9 @@ None of these steps has been taken.
 
 ## Known limitations
 
-- Pre-market filings enter the outcome window a session later than
-  `docs/methodology.md` states (#60). Both arms share the labels; the prompt
-  describes the rule as implemented.
+- Pre-market filings enter the outcome window at the next session, not that
+  morning's open, as `docs/methodology.md` states (#60). Both arms share the
+  labels; the prompt describes the same rule.
 - The refusal and rate-limit stream shapes the classifier expects are inferred
   from recorded fields, not recorded themselves.
 - Lesser review findings are listed in #61.

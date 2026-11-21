@@ -150,7 +150,9 @@ the signal lives in prose and disappear where it lives in a table.
 ## Target and evaluation
 
 The primary target is five-trading-day abnormal return against a sector ETF,
-entered at the first open after the filing's acceptance timestamp. Every arm
+entered at the open of the first session after the (Eastern) day of the filing's
+acceptance, so a filing accepted before the open enters the next session rather
+than that morning's. Every arm
 emits a probability that the return is positive, so calibration is measurable
 for every arm, not only the language models.
 

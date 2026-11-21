@@ -51,7 +51,8 @@ Every event carries an `as_of` timestamp taken from the filing's EDGAR
 acceptance datetime, which is when the information became public. That timestamp
 propagates into the evidence packet and into every query the packet's
 construction makes. Comparable retrieval filters on resolution time in the query
-itself. Return windows open at the first market open strictly after `as_of`.
+itself. Return windows open at the first session after the Eastern date of `as_of`, so
+even a filing accepted before that day's open waits for the next one.
 
 For the fourth, backtest and forward results are reported separately and always
 labeled. Because labels resolve in five trading days, out-of-sample evidence

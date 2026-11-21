@@ -101,8 +101,8 @@ restate the signature.
 def abnormal_return(stock: PriceSeries, benchmark: PriceSeries, window: TradingWindow) -> float:
     """Return the stock's excess return over its benchmark across the window.
 
-    The window opens at the first market open strictly after the event
-    timestamp, which avoids attributing pre-event price action to the event.
+    The window opens at the first session after the event's Eastern date,
+    which avoids attributing pre-event price action to the event.
 
     Returns a simple return difference in decimal form, not basis points.
 

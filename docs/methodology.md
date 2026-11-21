@@ -136,10 +136,16 @@ r_abnormal = r_stock(next_open → close at t+5) − r_benchmark(same window)
 
 The benchmark is the sector ETF mapped from the issuer's SIC classification.
 
-**The window opens at the first market open strictly after the event
-timestamp.** Filings frequently arrive after the close, and a same-session entry
-would attribute a full session of price movement to information that was not yet
-public.
+**The window opens at the open of the first session after the Eastern calendar
+date on which the filing was accepted.** A filing accepted after the close
+enters at the next session's open, so a same-session entry never attributes a
+session of price movement to information that was not yet public. A filing
+accepted before the 09:30 open also enters at the next session, not that
+morning's: daily bars are stamped at midnight Eastern and a session counts only
+if its stamp is later than the acceptance instant. This matches a decision made
+in a nightly batch after the close, and costs pre-market filings one session of
+reaction; whether to enter them at the same morning's open is open (#60), and
+would require relabelling every stored event.
 
 Each arm emits both a continuous point estimate and a distribution over three
 classes defined by historical terciles of that event type's abnormal return
