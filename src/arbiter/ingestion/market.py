@@ -86,6 +86,15 @@ class MissingCredentialsError(RuntimeError):
     """Raised when market data is requested without configured credentials."""
 
 
+class RejectedCredentialsError(RuntimeError):
+    """Raised when the market data service refuses the configured credentials.
+
+    Separate from `httpx.HTTPStatusError` because a 401 or 403 is a fact about
+    the whole run, not about one day's symbols: every later request will be
+    refused the same way.
+    """
+
+
 class RecentSipWindowError(ValueError):
     """Raised when a price window would extend into the current session.
 
@@ -268,6 +277,7 @@ def daily_bars(
     Raises:
         RecentSipWindowError: the window would cover the current session.
         MissingCredentialsError: no market data credentials are configured.
+        RejectedCredentialsError: the service refused the credentials (401/403).
         httpx.HTTPStatusError: the service rejected the request.
     """
     newest_permitted_end(today, end)
@@ -294,6 +304,12 @@ def daily_bars(
             params["page_token"] = page_token
 
         response = httpx.get(BARS_ENDPOINT, params=params, headers=headers, timeout=60)
+        if response.status_code in (401, 403):
+            msg = (
+                f"the market data service refused ALPACA_API_KEY and ALPACA_SECRET_KEY "
+                f"(HTTP {response.status_code})"
+            )
+            raise RejectedCredentialsError(msg)
         response.raise_for_status()
         payload: dict[str, Any] = response.json()
 
@@ -367,6 +383,7 @@ def daily_bars_tolerating_gaps(
             individually, which indicts the request rather than the symbols.
         RecentSipWindowError: the window would cover the current session.
         MissingCredentialsError: no market data credentials are configured.
+        RejectedCredentialsError: the service refused the credentials.
         httpx.HTTPStatusError: the service rejected the request for a reason
             other than its symbols.
     """

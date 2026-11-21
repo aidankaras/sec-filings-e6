@@ -40,7 +40,12 @@ from arbiter.evaluation.resolution import HORIZONS, WindowsStillOpenError, resol
 from arbiter.evaluation.size import ic_by_size, load_sizes
 from arbiter.ingestion.backfill import backfill as run_backfill
 from arbiter.ingestion.backfill import day_is_stored, ingest_and_resolve, sampled_trading_days
-from arbiter.ingestion.market import Bar, current_session_date, daily_bars_tolerating_gaps
+from arbiter.ingestion.market import (
+    Bar,
+    RejectedCredentialsError,
+    current_session_date,
+    daily_bars_tolerating_gaps,
+)
 from arbiter.ingestion.pipeline import ingest_day
 from arbiter.ingestion.sectors import benchmark_for_issuer, issuer_ticker
 
@@ -69,6 +74,29 @@ def _settings_or_exit() -> Settings:
         raise typer.Exit(code=1) from None
 
 
+def _missing_market_keys(settings: Settings) -> list[str]:
+    """Name the market data keys the settings leave unset."""
+    keys = {
+        "ALPACA_API_KEY": settings.alpaca_api_key,
+        "ALPACA_SECRET_KEY": settings.alpaca_secret_key,
+    }
+    return [name for name, value in keys.items() if value is None]
+
+
+def _market_settings_or_exit() -> Settings:
+    """Return validated settings that include market data keys, or exit.
+
+    Checked before any work, so a run that needs prices fails on its first line
+    rather than after it has spent time ingesting filings.
+    """
+    settings = _settings_or_exit()
+    missing = _missing_market_keys(settings)
+    if missing:
+        typer.echo(f"Market data needs {' and '.join(missing)}; set them in .env.", err=True)
+        raise typer.Exit(code=1)
+    return settings
+
+
 @app.command()
 def version() -> None:
     """Print the installed version."""
@@ -77,14 +105,26 @@ def version() -> None:
 
 @app.command()
 def check() -> None:
-    """Validate configuration and report what is reachable.
+    """Validate configuration and report what is configured.
 
     Run this after editing the environment. It exits non-zero on invalid
-    configuration so it can gate a scheduled run.
+    configuration so it can gate a scheduled run. It reads the environment only
+    and contacts no service, so a key that is set but wrong passes here and is
+    refused on first use.
     """
     settings = _settings_or_exit()
-    typer.echo(f"environment:  {settings.environment}")
-    typer.echo(f"broker:       {settings.alpaca_base_url}")
+    missing = _missing_market_keys(settings)
+    typer.echo(f"environment:   {settings.environment}")
+    typer.echo(f"broker:        {settings.alpaca_base_url}")
+    typer.echo(
+        "market data:   "
+        + (
+            f"not configured ({', '.join(missing)}); resolve, build-packets and "
+            "backfill need it"
+            if missing
+            else "keys set"
+        )
+    )
     typer.echo(f"daily ceiling: ${settings.daily_spend_ceiling_usd}")
     typer.echo("configuration valid")
 
@@ -100,6 +140,7 @@ def ingest(
     The day is a calendar date in ISO form. Re-running a day replaces that day's
     partitions, so a failed run is repeated rather than repaired.
     """
+    _settings_or_exit()
     counts = ingest_day(date.fromisoformat(day), Path(root), Decimal(min_value_usd))
     for domain, count in counts.items():
         typer.echo(f"{domain}: {count}")
@@ -129,6 +170,7 @@ def resolve(
         known = ", ".join(sorted(HORIZONS))
         typer.echo(f"unknown domain '{domain}'; expected one of: {known}", err=True)
         raise typer.Exit(code=2)
+    _market_settings_or_exit()
 
     today = current_session_date()
 
@@ -170,6 +212,7 @@ def build_packets(
     """
     from arbiter.packets.pipeline import UnsupportedPacketDomainError, build_day
 
+    _market_settings_or_exit()
     today = current_session_date()
 
     def fetch(symbols: Sequence[str], start: date, end: date) -> dict[str, list[Bar]]:
@@ -585,6 +628,7 @@ def backfill(
     With `--with-packets`, evidence packets are built for each day as it lands
     and a day counts as stored only once its packets exist.
     """
+    _market_settings_or_exit()
     days = sampled_trading_days(date.fromisoformat(start), date.fromisoformat(end), every)
     ingest_step, resolve_step = ingest_and_resolve(Path(root), Decimal(min_value_usd))
 
@@ -629,14 +673,18 @@ def backfill(
     pack_step = pack if with_packets else None
     stored = stored_with_packets if with_packets else stored_without_packets
 
-    summary = run_backfill(
-        days,
-        ingest=ingest_step,
-        resolve=resolve_step,
-        is_stored=stored,
-        pack=pack_step,
-        on_progress=typer.echo,
-    )
+    try:
+        summary = run_backfill(
+            days,
+            ingest=ingest_step,
+            resolve=resolve_step,
+            is_stored=stored,
+            pack=pack_step,
+            on_progress=typer.echo,
+        )
+    except RejectedCredentialsError as exc:
+        typer.echo(f"stopped: {exc}", err=True)
+        raise typer.Exit(code=1) from None
 
     typer.echo(
         f"completed: {len(summary.completed)}  skipped: {len(summary.skipped)}  "

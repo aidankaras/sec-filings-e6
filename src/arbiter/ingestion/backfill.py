@@ -27,7 +27,11 @@ from pathlib import Path
 
 from arbiter.evaluation.resolution import MissingBenchmarkSeriesError, WindowsStillOpenError
 from arbiter.ingestion.edgar import is_trading_day
-from arbiter.ingestion.market import MissingCredentialsError, SystemicRejectionError
+from arbiter.ingestion.market import (
+    MissingCredentialsError,
+    RejectedCredentialsError,
+    SystemicRejectionError,
+)
 
 #: A run losing this share of its days is failing for a reason that will not
 #: resolve itself, and continuing would spend hours producing a dataset whose
@@ -54,6 +58,7 @@ class SystemicBackfillError(RuntimeError):
 #: of being recorded against the day they happened on.
 _RUN_LEVEL_FAULTS = (
     MissingCredentialsError,
+    RejectedCredentialsError,
     SystemicRejectionError,
     MissingBenchmarkSeriesError,
 )

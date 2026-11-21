@@ -172,3 +172,23 @@ def test_timestamps_arrive_timezone_aware():
     for bar in parse_bars(_payload(), "MO"):
         assert bar.timestamp.tzinfo is not None
         assert bar.timestamp.astimezone(UTC).date() >= datetime(2026, 1, 1, tzinfo=UTC).date()
+
+
+@pytest.mark.parametrize("status", [401, 403])
+def test_refused_credentials_raise_their_own_error(
+    monkeypatch: pytest.MonkeyPatch, status: int
+):
+    """A refused key fails every later request too, so it must not read as a bad day."""
+    calls: list[httpx.Request] = []
+
+    def refuse(url: str, **kwargs: Any) -> httpx.Response:
+        request = httpx.Request("GET", url, params=kwargs.get("params"))
+        calls.append(request)
+        return httpx.Response(status, request=request)
+
+    monkeypatch.setattr(httpx, "get", refuse)
+    monkeypatch.setattr(market, "_credentials", lambda: {})
+
+    with pytest.raises(market.RejectedCredentialsError, match=str(status)):
+        daily_bars(["MO"], WINDOW_START, WINDOW_END, TODAY)
+    assert len(calls) == 1, "a refused credential is not retried"
