@@ -213,8 +213,11 @@ def test_an_event_carries_the_issuers_cik_not_the_index_entrys():
     assert {event.cik for event in events} == {1845437}
 
 
+@pytest.mark.integration
 def test_the_issuer_cik_resolves_to_a_sector_rather_than_the_broad_market():
     """The consequence, asserted rather than assumed.
+
+    Integration: `benchmark_for_issuer` looks the CIK's SIC code up on EDGAR.
 
     A fallback to SPY is a legitimate answer for an issuer with no sector
     mapping, which is exactly why it cannot be distinguished from a lookup made
