@@ -74,12 +74,15 @@ _MAJOR_GROUP_TO_ETF: dict[int, str] = {
     **dict.fromkeys(range(52, 60), "XLY"),  # retail
     # Finance, insurance, real estate
     **dict.fromkeys(range(60, 65), "XLF"),  # banks, brokers, insurers
-    **dict.fromkeys(range(65, 68), "XLRE"),  # real estate
+    **dict.fromkeys(range(65, 67), "XLRE"),  # real estate operators and agents
+    67: "XLF",  # holding and investment offices; REITs corrected below
     # Services
     **dict.fromkeys(range(70, 73), "XLY"),  # hotels, personal services
     73: "XLK",  # business services, dominated by software
-    **dict.fromkeys(range(74, 79), "XLY"),  # repair, entertainment
+    75: "XLY",  # auto repair
+    76: "XLY",  # miscellaneous repair
     78: "XLC",  # motion pictures
+    79: "XLY",  # amusement and recreation
     **dict.fromkeys(range(80, 81), "XLV"),  # health services
     **dict.fromkeys(range(81, 90), "XLY"),  # legal, educational, social
 }
@@ -94,7 +97,6 @@ _SUBGROUP_OVERRIDES: dict[int, str] = {
     2860: "XLB",  # industrial organic chemicals
     2870: "XLB",  # agricultural chemicals
     2890: "XLB",
-    3826: "XLV",  # laboratory analytical instruments
     # Transportation equipment spans two sectors that move differently. Aircraft
     # and railroad stock track industrials; vehicles sold to households track
     # consumer demand, so the automakers are corrected individually rather than
@@ -105,6 +107,14 @@ _SUBGROUP_OVERRIDES: dict[int, str] = {
     3715: "XLY",  # truck trailers
     3716: "XLY",  # motor homes
     3751: "XLY",  # motorcycles and bicycles
+    # Major group 67 mixes holding companies, funds and trusts with REITs and
+    # SPACs. A REIT tracks real estate; a blank-check company holds cash in
+    # trust until it merges, which no sector describes, so it gets the market.
+    6770: BROAD_MARKET_ETF,  # blank checks
+    6798: "XLRE",  # real estate investment trusts
+    # Commercial physical and biological research is where many clinical-stage
+    # biotechs file, under a major group (87) otherwise of consulting services.
+    8731: "XLV",
 }
 
 
