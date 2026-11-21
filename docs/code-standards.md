@@ -9,10 +9,12 @@ rest is review discipline.
 `pyright` runs in strict mode over `src/`. Every public function is fully
 annotated, including return types.
 
-Types carry domain meaning rather than restating primitives. A function that
-accepts a `Ticker` and an `AsOf` is harder to misuse than one accepting two
-strings, and the compiler catches the argument-order mistake that would otherwise
-surface as a silently wrong backtest. Where a value has units, the type or the
+Types carry domain meaning rather than restating primitives where a primitive
+would be easy to misuse: an evidence packet is an `EvidencePacket`, a scored
+issuer-day an `IssuerScore`, and timestamps are timezone-aware `datetime`s that
+the packet schema rejects when naive. Tickers and acceptance instants are still
+plain `str` and `datetime`; wrapping them so the type checker catches an
+argument-order mistake is not done yet. Where a value has units, the type or the
 name says so: `abnormal_return_bps`, not `value`.
 
 Domain invariants are expressed in the type where possible. An `EvidencePacket`
@@ -30,7 +32,10 @@ replay two years of history in seconds, and it is what makes a failed prediction
 reproducible six months later from the stored packet its hash names.
 
 Modules have one reason to change. When a file grows past roughly 400 lines it is
-usually holding two responsibilities that want separating.
+usually holding two responsibilities that want separating. Three files are past
+that today and are candidates: `cli.py` (one command per function, the agent
+commands separable), `evaluation/resolution.py` (fetching windows and writing
+labels) and `evaluation/report.py` (the main table and the two breakdowns).
 
 ## Errors
 
@@ -74,12 +79,14 @@ path beat broad coverage of trivial paths.
 
 ## Determinism
 
-Every stochastic process records its seed alongside its output. Model training,
-sampling, cross-validation splits, and the screening sample all log seeds to the
-run record.
+Every stochastic process has a fixed, committed seed. The baseline's is
+`RANDOM_SEED` in `arms/baseline.py`, so the commit that produced a report records
+it; the report does not print it. The agent arm's samples come from a model
+call with no seed, so its forecasts are not regenerable and are kept instead:
+each sample is written to the append-only ledger before any outcome exists.
 
-Any result that cannot be regenerated from committed code plus a recorded seed
-plus a packet hash is not a result. This is the practical test applied before any
+Any result that cannot be regenerated from committed code plus its seed plus a
+packet hash, or read back from the ledger, is not a result. This is the practical test applied before any
 number goes into a report.
 
 ## Configuration
