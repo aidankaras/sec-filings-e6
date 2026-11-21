@@ -20,6 +20,12 @@ be skipped by forgetting it.
 **Accessed through:** `edgartools`, which resolves filings from EDGAR's daily
 indices. Acceptance timestamps come from each filing's SEC header.
 
+**Insider Transactions Data Sets:** the SEC's quarterly extracts of Forms 3, 4
+and 5 (`YYYYqN_form345.zip`), downloaded by hand into `data/raw/form345` (see
+`docs/running-the-pipeline.md`). Used only for the report's insider-type
+breakdown, which classifies an insider from three prior years of trading. Also
+public domain; not redistributed.
+
 ## Market data and news
 
 **What:** daily bars for issuers and sector benchmark funds, and news articles

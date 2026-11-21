@@ -94,7 +94,8 @@ uv run arbiter report --domain insider
 ```
 
 `report` evaluates the baseline arm walk-forward and writes
-`reports/baseline-insider.md` and the figure beside it. The first
+`reports/baseline-insider.md` and the figure beside it, replacing any earlier
+run's. The first
 `--initial-fraction` of the stored days (default 0.3) are fitted on and never
 scored; every later day is scored, in blocks of `--refit-every` days (default
 10), each by a model refitted on the events whose outcomes had closed before the
@@ -102,6 +103,30 @@ block began. The split is by date, never random: a random split would place
 events from one day on both sides and report as skill what is partly memory.
 [`methodology.md`](methodology.md) covers
 the evaluation design in full.
+
+Two sections need inputs beyond the event store, and each is left out, with a
+line saying so, when its input is missing:
+
+- **By issuer size** reads the evidence packets under `--packet-root`
+  (default `data/packets`), which `backfill --with-packets` or `build-packets`
+  writes.
+- **By insider type** reads the SEC's
+  [Insider Transactions Data Sets](https://www.sec.gov/data-research/sec-markets-data/insider-transactions-data-sets),
+  quarterly zips named `YYYYqN_form345.zip`, from `--insider-history` (default
+  `data/raw/form345`). The published report used 2023q1 to 2026q1:
+
+  ```bash
+  mkdir -p data/raw/form345
+  for q in 2023q{1,2,3,4} 2024q{1,2,3,4} 2025q{1,2,3,4} 2026q1; do
+    curl -fsSL -A "$SEC_USER_AGENT" -o "data/raw/form345/${q}_form345.zip" \
+      "https://www.sec.gov/files/structureddata/data/insider-transactions-data-sets/${q}_form345.zip"
+  done
+  ```
+
+  The SEC asks for a descriptive User-Agent on these downloads as on EDGAR.
+  Later quarters are listed on the same page, some under a different path. The
+  first `report` streams the zips into a cache file beside them, named by the
+  zips' names, sizes and modification times, so adding a quarter rebuilds it.
 
 ## Running the agent arm
 

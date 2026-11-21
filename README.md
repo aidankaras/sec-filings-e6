@@ -69,8 +69,17 @@ cp .env.example .env                        # SEC_USER_AGENT, plus Alpaca keys f
 uv run arbiter ingest 2026-08-10            # one day of filings -> events
 uv run arbiter resolve 2026-08-10 insider   # once the outcome window has closed
 uv run arbiter backfill 2026-03-02 2026-08-14 --every 4
+uv run arbiter backfill 2026-06-01 2026-09-09 --with-packets   # packets feed the size table
+# SEC Insider Transactions Data Sets, 2023q1 to 2026q1, for the insider-type table
+mkdir -p data/raw/form345 && for q in 2023q{1,2,3,4} 2024q{1,2,3,4} 2025q{1,2,3,4} 2026q1; do
+  curl -fsSL -A "$SEC_USER_AGENT" -o data/raw/form345/${q}_form345.zip \
+    https://www.sec.gov/files/structureddata/data/insider-transactions-data-sets/${q}_form345.zip
+done
 uv run arbiter report --domain insider      # fit, score, write reports/
 ```
+
+Without packets or the data sets, `report` still runs and says which section it
+left out.
 
 [`docs/running-the-pipeline.md`](docs/running-the-pipeline.md) explains what each
 command records and why.
