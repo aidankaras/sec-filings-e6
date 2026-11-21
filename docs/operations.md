@@ -2,8 +2,8 @@
 
 ## Telemetry
 
-*Planned for the language-model arms; no model runs today.* Their runs will
-export OpenTelemetry metrics and logs carrying per-request cost, token counts,
+*Planned.* The agent arm records cost and tokens for every call in the
+`llm_calls` table (below), but exports no telemetry. Runs will export OpenTelemetry metrics and logs carrying per-request cost, token counts,
 model, and the originating subagent or skill. Any OTLP-compatible backend can
 receive them; the variables below target Langfuse Cloud.
 
@@ -65,6 +65,11 @@ starts it in `data/ledger/`, applies every migration, and prints the
 `DATABASE_URL` to put in `.env`. The URL is stable for that directory. The server
 keeps running after the command exits but not across a reboot, which is why the
 agent commands start it themselves when it is down.
+
+`ledger-up` and the agent commands run from a checkout of the repository, not
+from the Docker image: the migrations are not part of the installed package,
+and the agent needs a logged-in `claude` CLI on the host. The agent commands
+accept only the local ledger's URL, not the Compose Postgres service.
 
 ## Migrations
 

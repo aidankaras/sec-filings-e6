@@ -17,7 +17,6 @@ from pydantic import BaseModel
 from typer.testing import CliRunner
 
 import arbiter.cli
-from arbiter.arms.evaluate import IssuerScore
 from arbiter.cli import app
 from arbiter.evaluation.insider_type import (
     MIXED,
@@ -29,6 +28,7 @@ from arbiter.evaluation.insider_type import (
     load_issuer_day_classes,
 )
 from arbiter.evaluation.report import render_baseline_report
+from arbiter.evaluation.scoring import IssuerScore
 from arbiter.ingestion.store import write_events
 from tests.unit.test_report import GENERATED
 from tests.unit.test_report import _evaluation as report_evaluation

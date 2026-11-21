@@ -6,8 +6,7 @@ how far the estimate sits from zero relative to its own uncertainty. A single
 number without those is not a finding.
 
 The report is written as Markdown and committed, so that what was claimed at a
-given commit stays inspectable — a result recomputed later against more data is
-a new report, not an edit to the old one.
+given commit stays inspectable in the repository's history.
 """
 
 from __future__ import annotations
@@ -16,9 +15,9 @@ import math
 from collections.abc import Iterable, Sequence
 from datetime import date
 
-from arbiter.arms.evaluate import Evaluation
 from arbiter.evaluation.insider_type import TypeBreakdown
 from arbiter.evaluation.metrics import MIN_EVENTS_PER_DAY, ICSummary
+from arbiter.evaluation.scoring import Evaluation
 from arbiter.evaluation.size import SIZE_SESSIONS, BucketIC, SizeBreakdown
 
 #: Width of the bar drawn beside each calibration band, in characters. A drawn

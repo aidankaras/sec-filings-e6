@@ -1,5 +1,5 @@
 import json
-from datetime import UTC, date, datetime
+from datetime import date
 from decimal import Decimal
 from pathlib import Path
 
@@ -10,20 +10,14 @@ from arbiter.ingestion.market import (
     RecentSipWindowError,
     newest_permitted_end,
     parse_bars,
-    usable_news,
 )
 
 FIXTURES = Path(__file__).parents[1] / "fixtures"
 BARS = FIXTURES / "alpaca_bars.json"
-NEWS = FIXTURES / "alpaca_news.json"
 
 
 def _bars_payload() -> dict:
     return json.loads(BARS.read_text())
-
-
-def _news_items() -> list[dict]:
-    return json.loads(NEWS.read_text())["news"]
 
 
 def test_the_captured_bars_fixture_has_the_fields_the_parser_reads():
@@ -74,34 +68,3 @@ def test_a_window_ending_yesterday_is_permitted():
     assert newest_permitted_end(
         today=date(2026, 9, 16), requested_end=date(2026, 9, 15)
     ) == date(2026, 9, 15)
-
-
-def test_news_published_after_the_event_is_excluded():
-    """Evidence must predate the decision it informs."""
-    as_of = datetime(2026, 8, 24, 12, 0, 0, tzinfo=UTC)
-    kept = usable_news(_news_items(), as_of=as_of)
-    assert kept
-    assert all(
-        article["created_at"] < as_of.isoformat().replace("+00:00", "Z") for article in kept
-    )
-
-
-def test_articles_edited_after_the_event_are_excluded_in_backtests():
-    """An article revised later can carry information that did not yet exist."""
-    items = _news_items()
-    edited = dict(items[0])
-    edited["created_at"] = "2026-08-01T00:00:00Z"
-    edited["updated_at"] = "2026-08-30T00:00:00Z"
-
-    as_of = datetime(2026, 8, 15, tzinfo=UTC)
-
-    assert usable_news([edited], as_of=as_of) == []
-
-
-def test_an_unedited_article_before_the_event_is_kept():
-    items = _news_items()
-    clean = dict(items[0])
-    clean["created_at"] = "2026-08-01T00:00:00Z"
-    clean["updated_at"] = "2026-08-01T00:00:00Z"
-
-    assert usable_news([clean], as_of=datetime(2026, 8, 15, tzinfo=UTC)) == [clean]

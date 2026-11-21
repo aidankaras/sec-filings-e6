@@ -16,17 +16,14 @@ from collections.abc import Mapping, Sequence
 from dataclasses import dataclass, replace
 from datetime import date
 
-from arbiter.arms.evaluate import (
-    DayOfEvents,
-    _scores_by_issuer,  # pyright: ignore[reportPrivateUsage]
-    forecast_walk_forward,
-)
+from arbiter.arms.evaluate import forecast_walk_forward
 from arbiter.evaluation.metrics import (
     MIN_EVENTS_PER_DAY,
     ICSummary,
     information_coefficient,
     summarise_ic,
 )
+from arbiter.evaluation.scoring import DayOfEvents, scores_by_issuer
 
 
 class WindowNotScoredError(ValueError):
@@ -71,7 +68,7 @@ def daily_ic(
     daily: dict[date, float] = {}
     issuer_days = 0
     for day in days:
-        scores = _scores_by_issuer(forecasts[day.day], day)
+        scores = scores_by_issuer(forecasts[day.day], day)
         if len(scores) >= MIN_EVENTS_PER_DAY:
             daily[day.day] = information_coefficient(
                 [score.forecast for score in scores],

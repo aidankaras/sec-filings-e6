@@ -25,101 +25,80 @@
 <line x1="68" y1="60" x2="492" y2="60" stroke="#e1e0d9" stroke-width="1"/>
 <text x="60" y="64" font-size="11" fill="#898781" text-anchor="end" font-weight="normal">+0.5</text>
 <rect x="68" y="161.3" width="424" height="17.5" fill="#52514e" fill-opacity="0.1"/>
-<g><title>2026-06-15: -0.0646</title><path d="M62.5,176.7 V187.7 A4,4 0 0 0 66.5,191.7 H76.5 A4,4 0 0 0 80.5,187.7 V176.7 Z" fill="#2a78d6"/></g>
+<g><title>2026-06-15: -0.0646</title><path d="M69.1,176.7 V189.3 A2.5,2.5 0 0 0 71.5,191.7 H71.5 A2.5,2.5 0 0 0 74,189.3 V176.7 Z" fill="#2a78d6"/></g>
 <text x="71.5" y="288" font-size="11" fill="#898781" text-anchor="middle" font-weight="normal">Jun 15</text>
-<g><title>2026-06-16: +0.0448</title><path d="M69.6,176.7 V170.2 A4,4 0 0 1 73.6,166.2 H83.6 A4,4 0 0 1 87.6,170.2 V176.7 Z" fill="#2a78d6"/></g>
-<g><title>2026-06-17: +0.0249</title><path d="M76.7,176.7 V173.8 A2.9,2.9 0 0 1 79.6,170.9 H91.8 A2.9,2.9 0 0 1 94.7,173.8 V176.7 Z" fill="#2a78d6"/></g>
-<text x="85.7" y="288" font-size="11" fill="#898781" text-anchor="middle" font-weight="normal">Jun 17</text>
-<g><title>2026-06-18: -0.0410</title><path d="M83.7,176.7 V182.2 A4,4 0 0 0 87.7,186.2 H97.7 A4,4 0 0 0 101.7,182.2 V176.7 Z" fill="#2a78d6"/></g>
-<g><title>2026-06-22: -0.0573</title><path d="M90.8,176.7 V186 A4,4 0 0 0 94.8,190 H104.8 A4,4 0 0 0 108.8,186 V176.7 Z" fill="#2a78d6"/></g>
-<text x="99.8" y="288" font-size="11" fill="#898781" text-anchor="middle" font-weight="normal">Jun 22</text>
-<g><title>2026-06-23: +0.0822</title><path d="M97.9,176.7 V161.5 A4,4 0 0 1 101.9,157.5 H111.9 A4,4 0 0 1 115.9,161.5 V176.7 Z" fill="#2a78d6"/></g>
-<g><title>2026-06-24: +0.0830</title><path d="M104.9,176.7 V161.3 A4,4 0 0 1 108.9,157.3 H118.9 A4,4 0 0 1 122.9,161.3 V176.7 Z" fill="#2a78d6"/></g>
-<text x="113.9" y="288" font-size="11" fill="#898781" text-anchor="middle" font-weight="normal">Jun 24</text>
-<g><title>2026-06-25: +0.0126</title><path d="M112,176.7 V175.2 A1.5,1.5 0 0 1 113.5,173.7 H128.5 A1.5,1.5 0 0 1 130,175.2 V176.7 Z" fill="#2a78d6"/></g>
-<g><title>2026-06-26: -0.0332</title><path d="M119.1,176.7 V180.5 A3.9,3.9 0 0 0 122.9,184.4 H133.2 A3.9,3.9 0 0 0 137.1,180.5 V176.7 Z" fill="#2a78d6"/></g>
-<text x="128.1" y="288" font-size="11" fill="#898781" text-anchor="middle" font-weight="normal">Jun 26</text>
-<g><title>2026-06-29: +0.2755</title><path d="M126.1,176.7 V116.4 A4,4 0 0 1 130.1,112.4 H140.1 A4,4 0 0 1 144.1,116.4 V176.7 Z" fill="#2a78d6"/></g>
-<g><title>2026-06-30: -0.0328</title><path d="M133.2,176.7 V180.5 A3.8,3.8 0 0 0 137,184.3 H147.4 A3.8,3.8 0 0 0 151.2,180.5 V176.7 Z" fill="#2a78d6"/></g>
-<text x="142.2" y="288" font-size="11" fill="#898781" text-anchor="middle" font-weight="normal">Jun 30</text>
-<g><title>2026-07-01: -0.1714</title><path d="M140.3,176.7 V212.7 A4,4 0 0 0 144.3,216.7 H154.3 A4,4 0 0 0 158.3,212.7 V176.7 Z" fill="#2a78d6"/></g>
-<g><title>2026-07-02: +0.1164</title><path d="M147.3,176.7 V153.5 A4,4 0 0 1 151.3,149.5 H161.3 A4,4 0 0 1 165.3,153.5 V176.7 Z" fill="#2a78d6"/></g>
-<text x="156.3" y="288" font-size="11" fill="#898781" text-anchor="middle" font-weight="normal">Jul 2</text>
-<g><title>2026-07-06: +0.4024</title><path d="M154.4,176.7 V86.8 A4,4 0 0 1 158.4,82.8 H168.4 A4,4 0 0 1 172.4,86.8 V176.7 Z" fill="#2a78d6"/></g>
-<g><title>2026-07-07: -0.0030</title><path d="M161.5,176.7 V177 A0.4,0.4 0 0 0 161.8,177.4 H179.1 A0.4,0.4 0 0 0 179.5,177 V176.7 Z" fill="#2a78d6"/></g>
+<g><title>2026-06-16: +0.0448</title><path d="M76.1,176.7 V168.7 A2.5,2.5 0 0 1 78.6,166.2 H78.6 A2.5,2.5 0 0 1 81.1,168.7 V176.7 Z" fill="#2a78d6"/></g>
+<g><title>2026-06-17: +0.0249</title><path d="M83.2,176.7 V173.3 A2.5,2.5 0 0 1 85.7,170.9 H85.7 A2.5,2.5 0 0 1 88.1,173.3 V176.7 Z" fill="#2a78d6"/></g>
+<g><title>2026-06-18: -0.0410</title><path d="M90.3,176.7 V183.8 A2.5,2.5 0 0 0 92.7,186.2 H92.7 A2.5,2.5 0 0 0 95.2,183.8 V176.7 Z" fill="#2a78d6"/></g>
+<g><title>2026-06-22: -0.0573</title><path d="M97.3,176.7 V187.6 A2.5,2.5 0 0 0 99.8,190 H99.8 A2.5,2.5 0 0 0 102.3,187.6 V176.7 Z" fill="#2a78d6"/></g>
+<g><title>2026-06-23: +0.0822</title><path d="M104.4,176.7 V160 A2.5,2.5 0 0 1 106.9,157.5 H106.9 A2.5,2.5 0 0 1 109.3,160 V176.7 Z" fill="#2a78d6"/></g>
+<g><title>2026-06-24: +0.0830</title><path d="M111.5,176.7 V159.8 A2.5,2.5 0 0 1 113.9,157.3 H113.9 A2.5,2.5 0 0 1 116.4,159.8 V176.7 Z" fill="#2a78d6"/></g>
+<g><title>2026-06-25: +0.0126</title><path d="M118.5,176.7 V175.2 A1.5,1.5 0 0 1 120,173.7 H122 A1.5,1.5 0 0 1 123.5,175.2 V176.7 Z" fill="#2a78d6"/></g>
+<text x="121" y="288" font-size="11" fill="#898781" text-anchor="middle" font-weight="normal">Jun 25</text>
+<g><title>2026-06-26: -0.0332</title><path d="M125.6,176.7 V181.9 A2.5,2.5 0 0 0 128.1,184.4 H128.1 A2.5,2.5 0 0 0 130.5,181.9 V176.7 Z" fill="#2a78d6"/></g>
+<g><title>2026-06-29: +0.2755</title><path d="M132.7,176.7 V114.9 A2.5,2.5 0 0 1 135.1,112.4 H135.1 A2.5,2.5 0 0 1 137.6,114.9 V176.7 Z" fill="#2a78d6"/></g>
+<g><title>2026-06-30: -0.0328</title><path d="M139.7,176.7 V181.8 A2.5,2.5 0 0 0 142.2,184.3 H142.2 A2.5,2.5 0 0 0 144.7,181.8 V176.7 Z" fill="#2a78d6"/></g>
+<g><title>2026-07-01: -0.1714</title><path d="M146.8,176.7 V214.2 A2.5,2.5 0 0 0 149.3,216.7 H149.3 A2.5,2.5 0 0 0 151.7,214.2 V176.7 Z" fill="#2a78d6"/></g>
+<g><title>2026-07-02: +0.1164</title><path d="M153.9,176.7 V152 A2.5,2.5 0 0 1 156.3,149.5 H156.3 A2.5,2.5 0 0 1 158.8,152 V176.7 Z" fill="#2a78d6"/></g>
+<g><title>2026-07-06: +0.4024</title><path d="M160.9,176.7 V85.2 A2.5,2.5 0 0 1 163.4,82.8 H163.4 A2.5,2.5 0 0 1 165.9,85.2 V176.7 Z" fill="#2a78d6"/></g>
+<g><title>2026-07-07: -0.0030</title><path d="M168,176.7 V177 A0.4,0.4 0 0 0 168.3,177.4 H172.6 A0.4,0.4 0 0 0 172.9,177 V176.7 Z" fill="#2a78d6"/></g>
 <text x="170.5" y="288" font-size="11" fill="#898781" text-anchor="middle" font-weight="normal">Jul 7</text>
-<g><title>2026-07-08: +0.2282</title><path d="M168.5,176.7 V127.4 A4,4 0 0 1 172.5,123.4 H182.5 A4,4 0 0 1 186.5,127.4 V176.7 Z" fill="#2a78d6"/></g>
-<g><title>2026-07-09: -0.1195</title><path d="M175.6,176.7 V200.5 A4,4 0 0 0 179.6,204.5 H189.6 A4,4 0 0 0 193.6,200.5 V176.7 Z" fill="#2a78d6"/></g>
-<text x="184.6" y="288" font-size="11" fill="#898781" text-anchor="middle" font-weight="normal">Jul 9</text>
-<g><title>2026-07-10: +0.1887</title><path d="M182.7,176.7 V136.6 A4,4 0 0 1 186.7,132.6 H196.7 A4,4 0 0 1 200.7,136.6 V176.7 Z" fill="#2a78d6"/></g>
-<g><title>2026-07-13: +0.2401</title><path d="M189.7,176.7 V124.6 A4,4 0 0 1 193.7,120.6 H203.7 A4,4 0 0 1 207.7,124.6 V176.7 Z" fill="#2a78d6"/></g>
-<text x="198.7" y="288" font-size="11" fill="#898781" text-anchor="middle" font-weight="normal">Jul 13</text>
-<g><title>2026-07-14: +0.2088</title><path d="M196.8,176.7 V131.9 A4,4 0 0 1 200.8,127.9 H210.8 A4,4 0 0 1 214.8,131.9 V176.7 Z" fill="#2a78d6"/></g>
-<g><title>2026-07-15: +0.2031</title><path d="M203.9,176.7 V133.3 A4,4 0 0 1 207.9,129.3 H217.9 A4,4 0 0 1 221.9,133.3 V176.7 Z" fill="#2a78d6"/></g>
-<text x="212.9" y="288" font-size="11" fill="#898781" text-anchor="middle" font-weight="normal">Jul 15</text>
-<g><title>2026-07-16: -0.3230</title><path d="M210.9,176.7 V248 A4,4 0 0 0 214.9,252 H224.9 A4,4 0 0 0 228.9,248 V176.7 Z" fill="#2a78d6"/></g>
-<g><title>2026-07-17: +0.0208</title><path d="M218,176.7 V174.2 A2.4,2.4 0 0 1 220.4,171.8 H233.6 A2.4,2.4 0 0 1 236,174.2 V176.7 Z" fill="#2a78d6"/></g>
-<text x="227" y="288" font-size="11" fill="#898781" text-anchor="middle" font-weight="normal">Jul 17</text>
-<g><title>2026-07-20: +0.2107</title><path d="M225.1,176.7 V131.5 A4,4 0 0 1 229.1,127.5 H239.1 A4,4 0 0 1 243.1,131.5 V176.7 Z" fill="#2a78d6"/></g>
-<g><title>2026-07-21: +0.0138</title><path d="M232.1,176.7 V175.1 A1.6,1.6 0 0 1 233.7,173.4 H248.5 A1.6,1.6 0 0 1 250.1,175.1 V176.7 Z" fill="#2a78d6"/></g>
-<text x="241.1" y="288" font-size="11" fill="#898781" text-anchor="middle" font-weight="normal">Jul 21</text>
-<g><title>2026-07-22: +0.0629</title><path d="M239.2,176.7 V166 A4,4 0 0 1 243.2,162 H253.2 A4,4 0 0 1 257.2,166 V176.7 Z" fill="#2a78d6"/></g>
-<g><title>2026-07-23: -0.2931</title><path d="M246.3,176.7 V241 A4,4 0 0 0 250.3,245 H260.3 A4,4 0 0 0 264.3,241 V176.7 Z" fill="#2a78d6"/></g>
-<text x="255.3" y="288" font-size="11" fill="#898781" text-anchor="middle" font-weight="normal">Jul 23</text>
-<g><title>2026-07-24: +0.1228</title><path d="M253.3,176.7 V152 A4,4 0 0 1 257.3,148 H267.3 A4,4 0 0 1 271.3,152 V176.7 Z" fill="#2a78d6"/></g>
-<g><title>2026-07-27: -0.1551</title><path d="M260.4,176.7 V208.8 A4,4 0 0 0 264.4,212.8 H274.4 A4,4 0 0 0 278.4,208.8 V176.7 Z" fill="#2a78d6"/></g>
+<g><title>2026-07-08: +0.2282</title><path d="M175.1,176.7 V125.9 A2.5,2.5 0 0 1 177.5,123.4 H177.5 A2.5,2.5 0 0 1 180,125.9 V176.7 Z" fill="#2a78d6"/></g>
+<g><title>2026-07-09: -0.1195</title><path d="M182.1,176.7 V202.1 A2.5,2.5 0 0 0 184.6,204.6 H184.6 A2.5,2.5 0 0 0 187.1,202.1 V176.7 Z" fill="#2a78d6"/></g>
+<g><title>2026-07-10: +0.1887</title><path d="M189.2,176.7 V135.1 A2.5,2.5 0 0 1 191.7,132.6 H191.7 A2.5,2.5 0 0 1 194.1,135.1 V176.7 Z" fill="#2a78d6"/></g>
+<g><title>2026-07-13: +0.2401</title><path d="M196.3,176.7 V123.1 A2.5,2.5 0 0 1 198.7,120.6 H198.7 A2.5,2.5 0 0 1 201.2,123.1 V176.7 Z" fill="#2a78d6"/></g>
+<g><title>2026-07-14: +0.2088</title><path d="M203.3,176.7 V130.4 A2.5,2.5 0 0 1 205.8,127.9 H205.8 A2.5,2.5 0 0 1 208.3,130.4 V176.7 Z" fill="#2a78d6"/></g>
+<g><title>2026-07-15: +0.2031</title><path d="M210.4,176.7 V131.8 A2.5,2.5 0 0 1 212.9,129.3 H212.9 A2.5,2.5 0 0 1 215.3,131.8 V176.7 Z" fill="#2a78d6"/></g>
+<g><title>2026-07-16: -0.3230</title><path d="M217.5,176.7 V249.6 A2.5,2.5 0 0 0 219.9,252 H219.9 A2.5,2.5 0 0 0 222.4,249.6 V176.7 Z" fill="#2a78d6"/></g>
+<text x="219.9" y="288" font-size="11" fill="#898781" text-anchor="middle" font-weight="normal">Jul 16</text>
+<g><title>2026-07-17: +0.0208</title><path d="M224.5,176.7 V174.2 A2.4,2.4 0 0 1 227,171.8 H227 A2.4,2.4 0 0 1 229.5,174.2 V176.7 Z" fill="#2a78d6"/></g>
+<g><title>2026-07-20: +0.2107</title><path d="M231.6,176.7 V130 A2.5,2.5 0 0 1 234.1,127.5 H234.1 A2.5,2.5 0 0 1 236.5,130 V176.7 Z" fill="#2a78d6"/></g>
+<g><title>2026-07-21: +0.0138</title><path d="M238.7,176.7 V175.1 A1.6,1.6 0 0 1 240.3,173.4 H242 A1.6,1.6 0 0 1 243.6,175.1 V176.7 Z" fill="#2a78d6"/></g>
+<g><title>2026-07-22: +0.0629</title><path d="M245.7,176.7 V164.5 A2.5,2.5 0 0 1 248.2,162 H248.2 A2.5,2.5 0 0 1 250.7,164.5 V176.7 Z" fill="#2a78d6"/></g>
+<g><title>2026-07-23: -0.2931</title><path d="M252.8,176.7 V242.6 A2.5,2.5 0 0 0 255.3,245.1 H255.3 A2.5,2.5 0 0 0 257.7,242.6 V176.7 Z" fill="#2a78d6"/></g>
+<g><title>2026-07-24: +0.1228</title><path d="M259.9,176.7 V150.5 A2.5,2.5 0 0 1 262.3,148 H262.3 A2.5,2.5 0 0 1 264.8,150.5 V176.7 Z" fill="#2a78d6"/></g>
+<g><title>2026-07-27: -0.1551</title><path d="M266.9,176.7 V210.4 A2.5,2.5 0 0 0 269.4,212.9 H269.4 A2.5,2.5 0 0 0 271.9,210.4 V176.7 Z" fill="#2a78d6"/></g>
 <text x="269.4" y="288" font-size="11" fill="#898781" text-anchor="middle" font-weight="normal">Jul 27</text>
-<g><title>2026-07-28: +0.2353</title><path d="M267.5,176.7 V125.8 A4,4 0 0 1 271.5,121.8 H281.5 A4,4 0 0 1 285.5,125.8 V176.7 Z" fill="#2a78d6"/></g>
-<g><title>2026-07-29: +0.0927</title><path d="M274.5,176.7 V159 A4,4 0 0 1 278.5,155 H288.5 A4,4 0 0 1 292.5,159 V176.7 Z" fill="#2a78d6"/></g>
-<text x="283.5" y="288" font-size="11" fill="#898781" text-anchor="middle" font-weight="normal">Jul 29</text>
-<g><title>2026-07-30: -0.1711</title><path d="M281.6,176.7 V212.6 A4,4 0 0 0 285.6,216.6 H295.6 A4,4 0 0 0 299.6,212.6 V176.7 Z" fill="#2a78d6"/></g>
-<g><title>2026-07-31: -0.1015</title><path d="M288.7,176.7 V196.4 A4,4 0 0 0 292.7,200.4 H302.7 A4,4 0 0 0 306.7,196.4 V176.7 Z" fill="#2a78d6"/></g>
-<text x="297.7" y="288" font-size="11" fill="#898781" text-anchor="middle" font-weight="normal">Jul 31</text>
-<g><title>2026-08-03: -0.0134</title><path d="M295.7,176.7 V178.2 A1.6,1.6 0 0 0 297.3,179.8 H312.2 A1.6,1.6 0 0 0 313.7,178.2 V176.7 Z" fill="#2a78d6"/></g>
-<g><title>2026-08-04: +0.0614</title><path d="M302.8,176.7 V166.3 A4,4 0 0 1 306.8,162.3 H316.8 A4,4 0 0 1 320.8,166.3 V176.7 Z" fill="#2a78d6"/></g>
-<text x="311.8" y="288" font-size="11" fill="#898781" text-anchor="middle" font-weight="normal">Aug 4</text>
-<g><title>2026-08-05: +0.1157</title><path d="M309.9,176.7 V153.7 A4,4 0 0 1 313.9,149.7 H323.9 A4,4 0 0 1 327.9,153.7 V176.7 Z" fill="#2a78d6"/></g>
-<g><title>2026-08-06: -0.0598</title><path d="M316.9,176.7 V186.6 A4,4 0 0 0 320.9,190.6 H330.9 A4,4 0 0 0 334.9,186.6 V176.7 Z" fill="#2a78d6"/></g>
-<text x="325.9" y="288" font-size="11" fill="#898781" text-anchor="middle" font-weight="normal">Aug 6</text>
-<g><title>2026-08-07: -0.0894</title><path d="M324,176.7 V193.5 A4,4 0 0 0 328,197.5 H338 A4,4 0 0 0 342,193.5 V176.7 Z" fill="#2a78d6"/></g>
-<g><title>2026-08-10: +0.0865</title><path d="M331.1,176.7 V160.5 A4,4 0 0 1 335.1,156.5 H345.1 A4,4 0 0 1 349.1,160.5 V176.7 Z" fill="#2a78d6"/></g>
-<text x="340.1" y="288" font-size="11" fill="#898781" text-anchor="middle" font-weight="normal">Aug 10</text>
-<g><title>2026-08-11: +0.0869</title><path d="M338.1,176.7 V160.4 A4,4 0 0 1 342.1,156.4 H352.1 A4,4 0 0 1 356.1,160.4 V176.7 Z" fill="#2a78d6"/></g>
-<g><title>2026-08-12: -0.0202</title><path d="M345.2,176.7 V179 A2.4,2.4 0 0 0 347.6,181.4 H360.8 A2.4,2.4 0 0 0 363.2,179 V176.7 Z" fill="#2a78d6"/></g>
-<text x="354.2" y="288" font-size="11" fill="#898781" text-anchor="middle" font-weight="normal">Aug 12</text>
-<g><title>2026-08-13: -0.0072</title><path d="M352.3,176.7 V177.5 A0.8,0.8 0 0 0 353.1,178.3 H369.4 A0.8,0.8 0 0 0 370.3,177.5 V176.7 Z" fill="#2a78d6"/></g>
-<g><title>2026-08-14: -0.0418</title><path d="M359.3,176.7 V182.4 A4,4 0 0 0 363.3,186.4 H373.3 A4,4 0 0 0 377.3,182.4 V176.7 Z" fill="#2a78d6"/></g>
+<g><title>2026-07-28: +0.2353</title><path d="M274,176.7 V124.2 A2.5,2.5 0 0 1 276.5,121.8 H276.5 A2.5,2.5 0 0 1 278.9,124.2 V176.7 Z" fill="#2a78d6"/></g>
+<g><title>2026-07-29: +0.0927</title><path d="M281.1,176.7 V157.5 A2.5,2.5 0 0 1 283.5,155 H283.5 A2.5,2.5 0 0 1 286,157.5 V176.7 Z" fill="#2a78d6"/></g>
+<g><title>2026-07-30: -0.1711</title><path d="M288.1,176.7 V214.1 A2.5,2.5 0 0 0 290.6,216.6 H290.6 A2.5,2.5 0 0 0 293.1,214.1 V176.7 Z" fill="#2a78d6"/></g>
+<g><title>2026-07-31: -0.1015</title><path d="M295.2,176.7 V197.9 A2.5,2.5 0 0 0 297.7,200.3 H297.7 A2.5,2.5 0 0 0 300.1,197.9 V176.7 Z" fill="#2a78d6"/></g>
+<g><title>2026-08-03: -0.0134</title><path d="M302.3,176.7 V178.2 A1.6,1.6 0 0 0 303.8,179.8 H305.6 A1.6,1.6 0 0 0 307.2,178.2 V176.7 Z" fill="#2a78d6"/></g>
+<g><title>2026-08-04: +0.0614</title><path d="M309.3,176.7 V164.8 A2.5,2.5 0 0 1 311.8,162.3 H311.8 A2.5,2.5 0 0 1 314.3,164.8 V176.7 Z" fill="#2a78d6"/></g>
+<g><title>2026-08-05: +0.1157</title><path d="M316.4,176.7 V152.1 A2.5,2.5 0 0 1 318.9,149.7 H318.9 A2.5,2.5 0 0 1 321.3,152.1 V176.7 Z" fill="#2a78d6"/></g>
+<text x="318.9" y="288" font-size="11" fill="#898781" text-anchor="middle" font-weight="normal">Aug 5</text>
+<g><title>2026-08-06: -0.0598</title><path d="M323.5,176.7 V188.1 A2.5,2.5 0 0 0 325.9,190.6 H325.9 A2.5,2.5 0 0 0 328.4,188.1 V176.7 Z" fill="#2a78d6"/></g>
+<g><title>2026-08-07: -0.0894</title><path d="M330.5,176.7 V195.1 A2.5,2.5 0 0 0 333,197.5 H333 A2.5,2.5 0 0 0 335.5,195.1 V176.7 Z" fill="#2a78d6"/></g>
+<g><title>2026-08-10: +0.0865</title><path d="M337.6,176.7 V159 A2.5,2.5 0 0 1 340.1,156.5 H340.1 A2.5,2.5 0 0 1 342.5,159 V176.7 Z" fill="#2a78d6"/></g>
+<g><title>2026-08-11: +0.0869</title><path d="M344.7,176.7 V158.9 A2.5,2.5 0 0 1 347.1,156.4 H347.1 A2.5,2.5 0 0 1 349.6,158.9 V176.7 Z" fill="#2a78d6"/></g>
+<g><title>2026-08-12: -0.0202</title><path d="M351.7,176.7 V179 A2.4,2.4 0 0 0 354.1,181.4 H354.3 A2.4,2.4 0 0 0 356.7,179 V176.7 Z" fill="#2a78d6"/></g>
+<g><title>2026-08-13: -0.0072</title><path d="M358.8,176.7 V177.5 A0.8,0.8 0 0 0 359.6,178.3 H362.9 A0.8,0.8 0 0 0 363.7,177.5 V176.7 Z" fill="#2a78d6"/></g>
+<g><title>2026-08-14: -0.0418</title><path d="M365.9,176.7 V183.9 A2.5,2.5 0 0 0 368.3,186.4 H368.3 A2.5,2.5 0 0 0 370.8,183.9 V176.7 Z" fill="#2a78d6"/></g>
 <text x="368.3" y="288" font-size="11" fill="#898781" text-anchor="middle" font-weight="normal">Aug 14</text>
-<g><title>2026-08-17: -0.1052</title><path d="M366.4,176.7 V197.2 A4,4 0 0 0 370.4,201.2 H380.4 A4,4 0 0 0 384.4,197.2 V176.7 Z" fill="#2a78d6"/></g>
-<g><title>2026-08-18: +0.0565</title><path d="M373.5,176.7 V167.5 A4,4 0 0 1 377.5,163.5 H387.5 A4,4 0 0 1 391.5,167.5 V176.7 Z" fill="#2a78d6"/></g>
-<text x="382.5" y="288" font-size="11" fill="#898781" text-anchor="middle" font-weight="normal">Aug 18</text>
-<g><title>2026-08-19: +0.3037</title><path d="M380.5,176.7 V109.8 A4,4 0 0 1 384.5,105.8 H394.5 A4,4 0 0 1 398.5,109.8 V176.7 Z" fill="#2a78d6"/></g>
-<g><title>2026-08-20: +0.0828</title><path d="M387.6,176.7 V161.3 A4,4 0 0 1 391.6,157.3 H401.6 A4,4 0 0 1 405.6,161.3 V176.7 Z" fill="#2a78d6"/></g>
-<text x="396.6" y="288" font-size="11" fill="#898781" text-anchor="middle" font-weight="normal">Aug 20</text>
-<g><title>2026-08-21: -0.0331</title><path d="M394.7,176.7 V180.5 A3.9,3.9 0 0 0 398.5,184.4 H408.8 A3.9,3.9 0 0 0 412.7,180.5 V176.7 Z" fill="#2a78d6"/></g>
-<g><title>2026-08-24: +0.1338</title><path d="M401.7,176.7 V149.4 A4,4 0 0 1 405.7,145.4 H415.7 A4,4 0 0 1 419.7,149.4 V176.7 Z" fill="#2a78d6"/></g>
-<text x="410.7" y="288" font-size="11" fill="#898781" text-anchor="middle" font-weight="normal">Aug 24</text>
-<g><title>2026-08-25: +0.1079</title><path d="M408.8,176.7 V155.5 A4,4 0 0 1 412.8,151.5 H422.8 A4,4 0 0 1 426.8,155.5 V176.7 Z" fill="#2a78d6"/></g>
-<g><title>2026-08-26: +0.2291</title><path d="M415.9,176.7 V127.2 A4,4 0 0 1 419.9,123.2 H429.9 A4,4 0 0 1 433.9,127.2 V176.7 Z" fill="#2a78d6"/></g>
-<text x="424.9" y="288" font-size="11" fill="#898781" text-anchor="middle" font-weight="normal">Aug 26</text>
-<g><title>2026-08-27: +0.1315</title><path d="M422.9,176.7 V150 A4,4 0 0 1 426.9,146 H436.9 A4,4 0 0 1 440.9,150 V176.7 Z" fill="#2a78d6"/></g>
-<g><title>2026-08-28: -0.1216</title><path d="M430,176.7 V201 A4,4 0 0 0 434,205 H444 A4,4 0 0 0 448,201 V176.7 Z" fill="#2a78d6"/></g>
-<text x="439" y="288" font-size="11" fill="#898781" text-anchor="middle" font-weight="normal">Aug 28</text>
-<g><title>2026-08-31: -0.0229</title><path d="M437.1,176.7 V179.3 A2.7,2.7 0 0 0 439.7,182 H452.4 A2.7,2.7 0 0 0 455.1,179.3 V176.7 Z" fill="#2a78d6"/></g>
-<g><title>2026-09-01: -0.1602</title><path d="M444.1,176.7 V210.1 A4,4 0 0 0 448.1,214.1 H458.1 A4,4 0 0 0 462.1,210.1 V176.7 Z" fill="#2a78d6"/></g>
-<text x="453.1" y="288" font-size="11" fill="#898781" text-anchor="middle" font-weight="normal">Sep 1</text>
-<g><title>2026-09-02: +0.0454</title><path d="M451.2,176.7 V170.1 A4,4 0 0 1 455.2,166.1 H465.2 A4,4 0 0 1 469.2,170.1 V176.7 Z" fill="#2a78d6"/></g>
-<g><title>2026-09-03: -0.1203</title><path d="M458.3,176.7 V200.7 A4,4 0 0 0 462.3,204.7 H472.3 A4,4 0 0 0 476.3,200.7 V176.7 Z" fill="#2a78d6"/></g>
+<g><title>2026-08-17: -0.1052</title><path d="M372.9,176.7 V198.7 A2.5,2.5 0 0 0 375.4,201.2 H375.4 A2.5,2.5 0 0 0 377.9,198.7 V176.7 Z" fill="#2a78d6"/></g>
+<g><title>2026-08-18: +0.0565</title><path d="M380,176.7 V166 A2.5,2.5 0 0 1 382.5,163.5 H382.5 A2.5,2.5 0 0 1 384.9,166 V176.7 Z" fill="#2a78d6"/></g>
+<g><title>2026-08-19: +0.3037</title><path d="M387.1,176.7 V108.3 A2.5,2.5 0 0 1 389.5,105.8 H389.5 A2.5,2.5 0 0 1 392,108.3 V176.7 Z" fill="#2a78d6"/></g>
+<g><title>2026-08-20: +0.0828</title><path d="M394.1,176.7 V159.8 A2.5,2.5 0 0 1 396.6,157.3 H396.6 A2.5,2.5 0 0 1 399.1,159.8 V176.7 Z" fill="#2a78d6"/></g>
+<g><title>2026-08-21: -0.0331</title><path d="M401.2,176.7 V181.9 A2.5,2.5 0 0 0 403.7,184.4 H403.7 A2.5,2.5 0 0 0 406.1,181.9 V176.7 Z" fill="#2a78d6"/></g>
+<g><title>2026-08-24: +0.1338</title><path d="M408.3,176.7 V147.9 A2.5,2.5 0 0 1 410.7,145.4 H410.7 A2.5,2.5 0 0 1 413.2,147.9 V176.7 Z" fill="#2a78d6"/></g>
+<g><title>2026-08-25: +0.1079</title><path d="M415.3,176.7 V154 A2.5,2.5 0 0 1 417.8,151.5 H417.8 A2.5,2.5 0 0 1 420.3,154 V176.7 Z" fill="#2a78d6"/></g>
+<text x="417.8" y="288" font-size="11" fill="#898781" text-anchor="middle" font-weight="normal">Aug 25</text>
+<g><title>2026-08-26: +0.2291</title><path d="M422.4,176.7 V125.7 A2.5,2.5 0 0 1 424.9,123.2 H424.9 A2.5,2.5 0 0 1 427.3,125.7 V176.7 Z" fill="#2a78d6"/></g>
+<g><title>2026-08-27: +0.1315</title><path d="M429.5,176.7 V148.5 A2.5,2.5 0 0 1 431.9,146 H431.9 A2.5,2.5 0 0 1 434.4,148.5 V176.7 Z" fill="#2a78d6"/></g>
+<g><title>2026-08-28: -0.1216</title><path d="M436.5,176.7 V202.6 A2.5,2.5 0 0 0 439,205 H439 A2.5,2.5 0 0 0 441.5,202.6 V176.7 Z" fill="#2a78d6"/></g>
+<g><title>2026-08-31: -0.0229</title><path d="M443.6,176.7 V179.5 A2.5,2.5 0 0 0 446.1,182 H446.1 A2.5,2.5 0 0 0 448.5,179.5 V176.7 Z" fill="#2a78d6"/></g>
+<g><title>2026-09-01: -0.1602</title><path d="M450.7,176.7 V211.6 A2.5,2.5 0 0 0 453.1,214 H453.1 A2.5,2.5 0 0 0 455.6,211.6 V176.7 Z" fill="#2a78d6"/></g>
+<g><title>2026-09-02: +0.0454</title><path d="M457.7,176.7 V168.5 A2.5,2.5 0 0 1 460.2,166.1 H460.2 A2.5,2.5 0 0 1 462.7,168.5 V176.7 Z" fill="#2a78d6"/></g>
+<g><title>2026-09-03: -0.1203</title><path d="M464.8,176.7 V202.3 A2.5,2.5 0 0 0 467.3,204.7 H467.3 A2.5,2.5 0 0 0 469.7,202.3 V176.7 Z" fill="#2a78d6"/></g>
 <text x="467.3" y="288" font-size="11" fill="#898781" text-anchor="middle" font-weight="normal">Sep 3</text>
-<g><title>2026-09-04: +0.0331</title><path d="M465.3,176.7 V172.8 A3.9,3.9 0 0 1 469.2,168.9 H479.5 A3.9,3.9 0 0 1 483.3,172.8 V176.7 Z" fill="#2a78d6"/></g>
-<g><title>2026-09-08: -0.1518</title><path d="M472.4,176.7 V208.1 A4,4 0 0 0 476.4,212.1 H486.4 A4,4 0 0 0 490.4,208.1 V176.7 Z" fill="#2a78d6"/></g>
-<text x="481.4" y="288" font-size="11" fill="#898781" text-anchor="middle" font-weight="normal">Sep 8</text>
-<g><title>2026-09-09: -0.1205</title><path d="M479.5,176.7 V200.8 A4,4 0 0 0 483.5,204.8 H493.5 A4,4 0 0 0 497.5,200.8 V176.7 Z" fill="#2a78d6"/></g>
+<g><title>2026-09-04: +0.0331</title><path d="M471.9,176.7 V171.4 A2.5,2.5 0 0 1 474.3,168.9 H474.3 A2.5,2.5 0 0 1 476.8,171.4 V176.7 Z" fill="#2a78d6"/></g>
+<g><title>2026-09-08: -0.1518</title><path d="M478.9,176.7 V209.6 A2.5,2.5 0 0 0 481.4,212.1 H481.4 A2.5,2.5 0 0 0 483.9,209.6 V176.7 Z" fill="#2a78d6"/></g>
+<g><title>2026-09-09: -0.1205</title><path d="M486,176.7 V202.3 A2.5,2.5 0 0 0 488.5,204.8 H488.5 A2.5,2.5 0 0 0 490.9,202.3 V176.7 Z" fill="#2a78d6"/></g>
 <line x1="68" y1="176.7" x2="492" y2="176.7" stroke="#c3c2b7" stroke-width="1"/>
 <line x1="68" y1="170" x2="492" y2="170" stroke="#0b0b0b" stroke-width="1.5"/>
 <text x="500" y="174" font-size="11" fill="#0b0b0b" text-anchor="start" font-weight="600">mean +0.029</text>
-<text x="500" y="165.3" font-size="11" fill="#52514e" text-anchor="start" font-weight="normal">+2 SE</text>
-<text x="500" y="182.8" font-size="11" fill="#52514e" text-anchor="start" font-weight="normal">-2 SE</text>
+<text x="500" y="162" font-size="11" fill="#52514e" text-anchor="start" font-weight="normal">+2 SE</text>
+<text x="500" y="186" font-size="11" fill="#52514e" text-anchor="start" font-weight="normal">-2 SE</text>
 <text x="604" y="34" font-size="13" fill="#0b0b0b" text-anchor="start" font-weight="600">Calibration by forecast band</text>
 <text x="604" y="50" font-size="11" fill="#52514e" text-anchor="start" font-weight="normal">3,909 scored issuer-days</text>
 <line x1="648" y1="60" x2="648" y2="270" stroke="#e1e0d9" stroke-width="1"/>
@@ -141,10 +120,10 @@
 <line x1="648" y1="270" x2="858" y2="60" stroke="#c3c2b7" stroke-width="1.5"/>
 <text x="753" y="306" font-size="11" fill="#898781" text-anchor="middle" font-weight="normal">Mean forecast</text>
 <text x="610" y="165" font-size="11" fill="#898781" text-anchor="middle" transform="rotate(-90 610 165)">Share that rose</text>
-<g><title>0.3 to 0.4: forecast 0.388, realised 0.415, 106 issuer-days</title><circle cx="709.4" cy="189.4" r="5.1" fill="#2a78d6" stroke="#fcfcfb" stroke-width="2"/></g>
-<text x="718.4" y="193.4" font-size="11" fill="#52514e" text-anchor="start" font-weight="normal">n=106</text>
-<g><title>0.4 to 0.5: forecast 0.470, realised 0.468, 3,338 issuer-days</title><circle cx="767" cy="152.6" r="10" fill="#2a78d6" stroke="#fcfcfb" stroke-width="2"/></g>
-<text x="781" y="156.6" font-size="11" fill="#52514e" text-anchor="start" font-weight="normal">n=3,338</text>
-<g><title>0.5 to 0.6: forecast 0.517, realised 0.503, 465 issuer-days</title><circle cx="800.2" cy="127.7" r="6.2" fill="#2a78d6" stroke="#fcfcfb" stroke-width="2"/></g>
-<text x="810.4" y="131.7" font-size="11" fill="#52514e" text-anchor="start" font-weight="normal">n=465</text>
+<g><title>0.3 to 0.4: forecast 0.388, realised 0.415, 106 issuer-days</title><circle cx="709.6" cy="189.5" r="5.1" fill="#2a78d6" stroke="#fcfcfb" stroke-width="2"/></g>
+<text x="718.7" y="193.5" font-size="11" fill="#52514e" text-anchor="start" font-weight="normal">n=106</text>
+<g><title>0.4 to 0.5: forecast 0.470, realised 0.468, 3,338 issuer-days</title><circle cx="767" cy="152.4" r="10" fill="#2a78d6" stroke="#fcfcfb" stroke-width="2"/></g>
+<text x="781" y="156.4" font-size="11" fill="#52514e" text-anchor="start" font-weight="normal">n=3,338</text>
+<g><title>0.5 to 0.6: forecast 0.517, realised 0.503, 465 issuer-days</title><circle cx="799.9" cy="127.9" r="6.2" fill="#2a78d6" stroke="#fcfcfb" stroke-width="2"/></g>
+<text x="810.1" y="131.9" font-size="11" fill="#52514e" text-anchor="start" font-weight="normal">n=465</text>
 </svg>

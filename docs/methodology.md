@@ -103,10 +103,11 @@ early closes are not modelled, so a half-day session is withheld slightly longer
 than it needed to be — a packet missing a bar is weaker evidence, while a packet
 holding an unclosed one is false evidence.
 
-**No downstream fetching.** The three forecasting arms that consume a packet
-receive no capability to retrieve anything else. The agent analyst (not yet
-built) is constructed with an empty tool list, so the constraint holds structurally rather than
-depending on a prompt being obeyed.
+**No downstream fetching.** The forecasting arms that consume a packet receive
+no capability to retrieve anything else. The agent analyst holds no tool but
+`StructuredOutput`, the one that returns its answer, and the startup event of
+every call is checked for that (`arms/agent/runtime.py`), so the constraint
+holds structurally rather than depending on a prompt being obeyed.
 
 Without these, the four arms cannot be shown to have seen the same information,
 and the comparison has no meaning.
@@ -136,16 +137,22 @@ r_abnormal = r_stock(next_open → close at t+5) − r_benchmark(same window)
 
 The benchmark is the sector ETF mapped from the issuer's SIC classification.
 
-**The window opens at the first market open strictly after the event
-timestamp.** Filings frequently arrive after the close, and a same-session entry
-would attribute a full session of price movement to information that was not yet
-public.
+**The window opens at the open of the first session after the Eastern calendar
+date on which the filing was accepted.** A filing accepted after the close
+enters at the next session's open, so a same-session entry never attributes a
+session of price movement to information that was not yet public. A filing
+accepted before the 09:30 open also enters at the next session, not that
+morning's: daily bars are stamped at midnight Eastern and a session counts only
+if its stamp is later than the acceptance instant. This matches a decision made
+in a nightly batch after the close, and costs pre-market filings one session of
+reaction; whether to enter them at the same morning's open is open (#60), and
+would require relabelling every stored event.
 
-Each arm emits both a continuous point estimate and a distribution over three
-classes defined by historical terciles of that event type's abnormal return
-distribution. The class distribution makes calibration measurable for the
-non-LLM arms, which would otherwise be excluded from the most informative
-comparison.
+Each built arm emits one probability that the abnormal return is positive. A
+probability makes calibration measurable for every arm, including the non-LLM
+ones, which would otherwise be excluded from the most informative comparison.
+A distribution over return terciles was part of the original design and is not
+built.
 
 Secondary labels derived from the same packets: twenty-day abnormal return, and
 the change in realized volatility around the event.
@@ -189,10 +196,13 @@ for it.
 
 ## Screening
 
-Running every arm on every event is not affordable, so `agent` and `arbiter` run
+*Designed, not built.* The agent arm currently forecasts every issuer-day in its
+window, the baseline's population, so the comparison is paired
+(`docs/agent-arm.md`). Screening is the design for when running the
+language-model arms on every event is not affordable: `agent` and `arbiter` run
 on a subset while `baseline` and `dl` run on everything.
 
-An event is screened in when the baseline and neural arms disagree beyond a
+An event would be screened in when the baseline and neural arms disagree beyond a
 threshold, or when predicted magnitude is large, **or when it is selected by a
 random control sample drawn at a fixed rate.**
 
@@ -319,9 +329,10 @@ lookahead bias in LLM forecasts has largely examined the latter.
 
 ## Regression control
 
-A frozen benchmark of labeled events, versioned in the repository, with
-pre-registered metrics. Any change to prompts, features, models, or screening
-must not regress it, and CI fails if it does.
+*Planned; no benchmark set exists yet and CI does not check one.* A frozen
+benchmark of labeled events, versioned in the repository, with pre-registered
+metrics. Any change to prompts, features, models, or screening must not regress
+it, and CI will fail if it does.
 
 The benchmark set is itself frozen. Changing it is a reviewed change, because a
 benchmark that moves with the system it measures measures nothing.
@@ -331,8 +342,19 @@ benchmark that moves with the system it measures measures nothing.
 - **Sector ETFs are a crude benchmark.** They do not adjust for size, value, or
   momentum exposure, so abnormal returns retain factor loadings. A factor-model
   benchmark is a planned refinement.
-- **Screening restricts the LLM arms' population.** Mitigated by the control
-  sample, not eliminated.
+- **Packet prices are adjusted as of the build date, not the event.** Bars are
+  fetched with `adjustment=all`, so a split or dividend after the filing but
+  before the packet was built rescales every bar in it. The price level an
+  arm sees can then differ from what was quoted at the time, and rebuilding a
+  packet after a later corporate action changes its bars and its hash. The
+  stored packet and its hash remain the record of what an arm saw; a rebuild is
+  not guaranteed to reproduce it. Unadjusted bars would avoid this but put a
+  false jump into the trailing return and volatility at any split inside the
+  lookback; the fix is unadjusted bars adjusted only for corporate actions
+  announced by `as_of`, which is not built.
+- **Screening would restrict the LLM arms' population.** Not an issue today,
+  since the agent arm runs on every issuer-day; once screening is built it is
+  mitigated by the control sample, not eliminated.
 - **Shadow portfolios model transaction costs rather than experiencing them.**
   Slippage on less liquid names is understated.
 - **Survivorship.** The issuer universe is constructed from filings, so companies

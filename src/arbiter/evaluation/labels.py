@@ -52,8 +52,9 @@ def abnormal_return(
 ) -> Decimal:
     """Return the issuer's excess simple return over its benchmark.
 
-    All four prices come from the same sessions: entry at the first open after
-    the decision, exit at the close of the horizon's final session.
+    All four prices come from the same sessions: entry at the open of the first
+    session after the filing's Eastern date, exit at the close of the horizon's
+    final session.
 
     Returns a simple return difference in decimal form, not basis points.
 

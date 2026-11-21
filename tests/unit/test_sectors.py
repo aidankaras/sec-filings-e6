@@ -22,6 +22,14 @@ from arbiter.ingestion.sectors import (
         ("2820", "XLB", "plastics and resins are materials"),
         ("4813", "XLC", "telephone communications"),
         ("3826", "XLV", "laboratory analytical instruments are health care"),
+        ("8731", "XLV", "commercial biological research is where biotechs file"),
+        ("6770", "SPY", "a blank-check company holds cash in trust, no sector"),
+        ("6799", "XLF", "investors not elsewhere classified are financials"),
+        ("6711", "XLF", "holding offices are financials"),
+        ("6512", "XLRE", "operators of nonresidential buildings"),
+        ("7011", "XLY", "hotels and motels"),
+        ("7812", "XLC", "motion picture production"),
+        ("7990", "XLY", "amusement and recreation services"),
     ],
 )
 def test_representative_codes_map_to_their_sector(sic: str, expected: str, why: str):
@@ -44,8 +52,11 @@ def test_codes_are_accepted_with_or_without_leading_zeros():
 
 def test_every_mapped_symbol_is_a_known_benchmark():
     """Guards against a typo silently creating a benchmark that does not trade."""
-    assert BROAD_MARKET_ETF in SECTOR_ETFS or BROAD_MARKET_ETF == "SPY"
-    for symbol in SECTOR_ETFS:
+    known = {*SECTOR_ETFS, BROAD_MARKET_ETF}
+    mapped = {sector_etf_for_sic(str(code)) for code in range(100, 10000)}
+
+    assert mapped <= known, mapped - known
+    for symbol in known:
         assert symbol.isupper()
         assert 2 <= len(symbol) <= 4
 

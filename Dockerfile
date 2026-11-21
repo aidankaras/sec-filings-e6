@@ -14,7 +14,7 @@ WORKDIR /app
 FROM base AS deps
 COPY pyproject.toml uv.lock ./
 RUN --mount=type=cache,target=/root/.cache/uv \
-    uv sync --frozen --no-install-project --all-extras
+    uv sync --frozen --no-install-project --no-dev
 
 FROM base AS runtime
 COPY --from=deps /app/.venv /app/.venv
@@ -23,7 +23,7 @@ ENV PATH="/app/.venv/bin:$PATH"
 COPY pyproject.toml uv.lock README.md ./
 COPY src/ src/
 RUN --mount=type=cache,target=/root/.cache/uv \
-    uv sync --frozen --no-editable --all-extras
+    uv sync --frozen --no-editable --no-dev
 
 # Run as an unprivileged user. The container has no reason to write outside
 # its own working directory.

@@ -88,6 +88,10 @@ class LlmCall(Base):
     # run scores many events. Null where a call belongs to no single decision,
     # such as a backfill.
     packet_hash: Mapped[str | None] = mapped_column(String(64), nullable=True, index=True)
+    #: Not written. A call is metered when it returns, before the forecast it
+    #: feeds exists (and some calls never produce one), and this table is
+    #: append-only, so the link cannot be filled in later. Cost is joined to
+    #: predictions through `packet_hash` instead.
     prediction_id: Mapped[int | None] = mapped_column(
         ForeignKey("predictions.id"), nullable=True
     )

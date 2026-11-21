@@ -261,6 +261,7 @@ FORBIDDEN = (
     "arbiter.evaluation",
     "arbiter.ingestion",
     "arbiter.arms.evaluate",
+    "arbiter.arms.comparison",
     "arbiter.arms.baseline",
     "arbiter.arms.features",
 )

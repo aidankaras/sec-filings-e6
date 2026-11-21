@@ -4,12 +4,7 @@ from pathlib import Path
 
 import pytest
 
-from arbiter.llm.usage import (
-    ClaudeRunUsage,
-    ModelUsage,
-    parse_claude_run,
-    parse_model_usage,
-)
+from arbiter.llm.usage import ModelUsage, parse_model_usage
 
 FIXTURE = Path(__file__).parents[1] / "fixtures" / "claude_run.json"
 
@@ -18,53 +13,13 @@ def _payload() -> dict:
     return json.loads(FIXTURE.read_text())
 
 
-def test_parses_a_real_captured_payload():
-    """The parser must work against output a real run produced, not a mock."""
-    usage = parse_claude_run(_payload())
-    assert isinstance(usage, ClaudeRunUsage)
-    assert usage.session_id
-    assert usage.total_cost_usd > Decimal("0")
-    assert usage.input_tokens > 0
-    assert usage.cache_read_tokens > 0
-
-
-def test_cost_is_decimal_not_float():
+def test_cost_is_decimal_with_the_digits_reported():
     """Money is never a float: rounding error would accumulate across calls."""
-    usage = parse_claude_run(_payload())
-    assert isinstance(usage.total_cost_usd, Decimal)
-
-
-def test_cost_keeps_full_precision_from_the_payload():
     payload = _payload()
-    assert parse_claude_run(payload).total_cost_usd == Decimal(str(payload["total_cost_usd"]))
-
-
-def test_missing_cost_field_raises_rather_than_defaulting_to_zero():
-    payload = _payload()
-    del payload["total_cost_usd"]
-    with pytest.raises(ValueError, match="total_cost_usd"):
-        parse_claude_run(payload)
-
-
-def test_missing_usage_block_raises():
-    payload = _payload()
-    del payload["usage"]
-    with pytest.raises(ValueError, match="usage"):
-        parse_claude_run(payload)
-
-
-def test_missing_token_counts_raise():
-    payload = _payload()
-    del payload["usage"]["input_tokens"]
-    with pytest.raises(ValueError, match="input_tokens"):
-        parse_claude_run(payload)
-
-
-def test_absent_cache_reads_are_zero_not_an_error():
-    """A run that read nothing from cache legitimately omits the counter."""
-    payload = _payload()
-    del payload["usage"]["cache_read_input_tokens"]
-    assert parse_claude_run(payload).cache_read_tokens == 0
+    for record in parse_model_usage(payload):
+        reported = payload["modelUsage"][record.model_id]["costUSD"]
+        assert isinstance(record.cost_usd, Decimal)
+        assert record.cost_usd == Decimal(str(reported))
 
 
 def test_one_usage_record_per_model_in_the_run():

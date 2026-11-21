@@ -83,7 +83,11 @@ def test_the_result_keeps_decimal_precision():
         benchmark_entry=Decimal("80.00"),
         benchmark_exit=Decimal("80.40"),
     )
+    # -0.12 / 67.31 - 0.005 = -0.0067827960184...; kept as a Decimal to 12 places,
+    # where a float round trip would differ in the last digits.
     assert isinstance(result, Decimal)
+    assert result == Decimal("-0.006782796018")
+    assert result.as_tuple().exponent == -12
 
 
 @pytest.mark.parametrize(

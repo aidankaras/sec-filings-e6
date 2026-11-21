@@ -10,8 +10,8 @@ from pathlib import Path
 
 import pytest
 
-from arbiter.arms.evaluate import IssuerScore
 from arbiter.evaluation.report import render_baseline_report
+from arbiter.evaluation.scoring import IssuerScore
 from arbiter.evaluation.size import SizeBreakdown, ic_by_size
 from tests.unit.test_report import GENERATED
 from tests.unit.test_report import _evaluation as report_evaluation

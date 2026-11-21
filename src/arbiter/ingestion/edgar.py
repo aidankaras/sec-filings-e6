@@ -307,8 +307,3 @@ def filings_with_objects(
         for accession_no in untimestamped:
             on_untimestamped(accession_no)
     return records
-
-
-def daily_filings(form: str, on: date) -> list[FilingRecord]:
-    """Return every filing of one form type accepted on one calendar day."""
-    return [record for record, _ in filings_with_objects(form, on)]

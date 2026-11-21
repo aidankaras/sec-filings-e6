@@ -42,3 +42,19 @@ def test_rejects_unknown_configuration_keys() -> None:
 def test_secrets_are_not_exposed_in_the_repr() -> None:
     settings = Settings(**{**VALID, "anthropic_api_key": "sk-should-not-appear"})
     assert "sk-should-not-appear" not in repr(settings)
+
+
+@pytest.mark.parametrize("blank", ["", "   "], ids=["empty", "whitespace"])
+def test_a_blank_secret_reads_as_unset(blank: str) -> None:
+    """`.env.example` ships `ALPACA_API_KEY=""`; that is a missing key, not a key."""
+    settings = Settings(**{**VALID, "alpaca_api_key": blank, "alpaca_secret_key": blank})
+
+    assert settings.alpaca_api_key is None
+    assert settings.alpaca_secret_key is None
+
+
+def test_a_set_secret_is_kept() -> None:
+    settings = Settings(**{**VALID, "alpaca_api_key": "key-id"})
+
+    assert settings.alpaca_api_key is not None
+    assert settings.alpaca_api_key.get_secret_value() == "key-id"

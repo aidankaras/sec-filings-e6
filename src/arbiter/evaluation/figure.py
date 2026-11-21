@@ -16,8 +16,8 @@ import math
 from collections.abc import Callable
 from xml.sax.saxutils import escape
 
-from arbiter.arms.evaluate import Evaluation
 from arbiter.evaluation.metrics import defined_ic
+from arbiter.evaluation.scoring import Evaluation
 
 _WIDTH = 880
 _HEIGHT = 340
@@ -32,10 +32,17 @@ _BASELINE = "#c3c2b7"
 _SERIES = "#2a78d6"
 _FONT = 'system-ui, -apple-system, "Segoe UI", sans-serif'
 
-#: Bars are capped well short of their slot, so the gaps between days read as air.
+#: The widest a bar is drawn, when few days leave each one a wide slot.
 _BAR_WIDTH = 18
+#: The share of its slot a bar may fill, so neighbouring bars never touch.
+_BAR_FILL = 0.7
 #: The rounded radius at a bar's data end; the end at the baseline stays square.
 _BAR_RADIUS = 4
+#: The least horizontal distance between two date labels, in pixels; a label
+#: such as "Jun 15" is about 35 px wide at the axis font size.
+_LABEL_SPACING = 48
+#: The least vertical distance between the labels right of the IC panel.
+_LABEL_GAP = 12
 
 
 def _number(value: float) -> str:
@@ -91,11 +98,11 @@ def _heading(left: float, top: float, title: str, subtitle: str) -> list[str]:
     ]
 
 
-def _bar(x: float, zero: float, top: float) -> str:
-    """Draw a bar from the baseline to `top`, rounded only at its data end."""
+def _bar(x: float, zero: float, top: float, width: float) -> str:
+    """Draw a bar `width` wide from the baseline to `top`, rounded only at its data end."""
     height = abs(zero - top)
-    radius = min(_BAR_RADIUS, height / 2, _BAR_WIDTH / 2)
-    left, right = x - _BAR_WIDTH / 2, x + _BAR_WIDTH / 2
+    radius = min(_BAR_RADIUS, height / 2, width / 2)
+    left, right = x - width / 2, x + width / 2
     # The data end is above the baseline for a positive value and below it for
     # a negative one; the arc sweeps toward the data end either way.
     direction = -1 if top < zero else 1
@@ -149,23 +156,29 @@ def _ic_panel(evaluation: Evaluation, left: float, top: float, width: float) -> 
     )
 
     slot = (plot_right - plot_left) / len(days)
+    bar_width = min(_BAR_WIDTH, _BAR_FILL * slot)
+    # Label every `stride`-th day, so that labels stay apart however many
+    # days there are; the first is always labelled.
+    stride = max(1, math.ceil(_LABEL_SPACING / slot))
     for index, (day, value) in enumerate(zip(days, values, strict=True)):
         x = plot_left + slot * (index + 0.5)
-        parts.append(
-            f"<g><title>{day.isoformat()}: {value:+.4f}</title>{_bar(x, y(0), y(value))}</g>"
-        )
-        # Every other day is labelled: eleven dates do not fit at this width,
-        # and the first, middle and last are enough to place the period.
-        if index % 2 == 0:
+        bar = _bar(x, y(0), y(value), bar_width)
+        parts.append(f"<g><title>{day.isoformat()}: {value:+.4f}</title>{bar}</g>")
+        if index % stride == 0:
             parts.append(_text(x, plot_bottom + 18, f"{day:%b} {day.day}", anchor="middle"))
 
     parts.append(_line(plot_left, y(0), plot_right, y(0), _BASELINE))
     parts.append(_line(plot_left, y(ic.mean), plot_right, y(ic.mean), _INK, 1.5))
+    # A narrow band would put its labels on top of the mean's, so each is
+    # pushed out to at least `_LABEL_GAP` from it; the band itself is unmoved.
+    mean_y = y(ic.mean)
+    upper_y = min(y(band[1]), mean_y - _LABEL_GAP)
+    lower_y = max(y(band[0]), mean_y + _LABEL_GAP)
     parts.append(
-        _text(plot_right + 8, y(ic.mean) + 4, f"mean {ic.mean:+.3f}", fill=_INK, weight="600")
+        _text(plot_right + 8, mean_y + 4, f"mean {ic.mean:+.3f}", fill=_INK, weight="600")
     )
-    parts.append(_text(plot_right + 8, y(band[1]) + 4, "+2 SE", fill=_INK_SECONDARY))
-    parts.append(_text(plot_right + 8, y(band[0]) + 4, "-2 SE", fill=_INK_SECONDARY))
+    parts.append(_text(plot_right + 8, upper_y + 4, "+2 SE", fill=_INK_SECONDARY))
+    parts.append(_text(plot_right + 8, lower_y + 4, "-2 SE", fill=_INK_SECONDARY))
     return parts
 
 

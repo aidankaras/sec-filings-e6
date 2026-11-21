@@ -2,8 +2,9 @@
 
 A label is only meaningful if it measures what a position could actually have
 captured, so the window is defined by what a decision made after the filing
-could trade: entry at the first open available afterwards, exit at the close of
-the horizon's final session.
+could trade in a nightly batch after the close: entry at the open of the first
+session after the filing's Eastern date, exit at the close of the horizon's
+final session.
 
 Each label records the benchmark it was measured against. Sector classification
 is a judgment that may be revised, and a label that did not name its benchmark
@@ -71,10 +72,12 @@ class ResolutionRequest:
 def entry_sessions(bars: list[Bar], as_of: datetime) -> list[Bar]:
     """Return the sessions an event could have traded, entry first.
 
-    A session is tradeable only if it began after the filing became public. The
-    bars therefore act as the trading calendar: whichever sessions the exchange
-    actually held are the ones that count, so holidays and early closes need no
-    separate table.
+    A session is tradeable only if its bar is stamped after the filing became
+    public. Daily bars are stamped at midnight Eastern, so a filing accepted at
+    any time on a date, including before that day's open, enters at the next
+    session. The bars also act as the trading calendar: whichever sessions the
+    exchange actually held are the ones that count, so holidays and early closes
+    need no separate table.
     """
     return [bar for bar in bars if bar.timestamp > as_of]
 
@@ -172,8 +175,7 @@ class SystemicUnmeasurableError(RuntimeError):
     Distinct from an individual unresolvable event, which is ordinary. A day
     where nearly every event fails shares one cause — a window that ends before
     the horizon closes, a feed refusing the range — and writing it as a day that
-    simply produced few labels is what let such a defect run undetected across a
-    whole backfill.
+    simply produced few labels would hide that defect for a whole backfill.
     """
 
 
@@ -442,7 +444,7 @@ def resolve_day(
         A label per measurable event, in the order the events were given, and a
         record per ripe event that produced none. The second is not a detail: a
         day whose events were all ripe and all unmeasurable is a broken window
-        or a refused feed, and returning only the empty label list is what let
+        or a refused feed, and returning only the empty label list would let
         such a day be written as a quiet one.
 
     Raises:

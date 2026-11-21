@@ -11,9 +11,9 @@ from datetime import date
 
 import pytest
 
-from arbiter.arms.evaluate import Evaluation, Fold
 from arbiter.evaluation.metrics import CalibrationBin, ICSummary
 from arbiter.evaluation.report import render_baseline_report
+from arbiter.evaluation.scoring import Evaluation, Fold
 
 GENERATED = date(2026, 9, 18)
 

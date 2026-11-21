@@ -27,7 +27,10 @@ _PAPER_TRADING_HOSTS = frozenset({"paper-api.alpaca.markets"})
 
 
 class Environment(StrEnum):
-    """Deployment environment, which gates destructive and live-trading paths."""
+    """Deployment environment.
+
+    Validated and shown by `arbiter check`; no code path branches on it yet.
+    """
 
     DEVELOPMENT = "development"
     CI = "ci"
@@ -50,6 +53,7 @@ class Settings(BaseSettings):
     )
 
     environment: Environment = Environment.DEVELOPMENT
+    #: Accepted so existing `.env` files stay valid; nothing logs through it yet.
     log_level: str = "INFO"
 
     sec_user_agent: str = Field(
@@ -73,6 +77,26 @@ class Settings(BaseSettings):
 
     daily_spend_ceiling_usd: Annotated[Decimal, Field(gt=0)] = Decimal("4.00")
     per_run_token_ceiling: Annotated[int, Field(gt=0)] = 250_000
+
+    @field_validator(
+        "anthropic_api_key",
+        "deepseek_api_key",
+        "alpaca_api_key",
+        "alpaca_secret_key",
+        mode="before",
+    )
+    @classmethod
+    def _blank_secret_is_absent(cls, value: object) -> object:
+        """Read an empty or whitespace-only secret as unset.
+
+        `.env.example` ships each key as `""`. Kept as an empty `SecretStr`, it
+        would pass every "is a key configured" check and reach the remote
+        service as a blank header, which fails as an authentication error
+        rather than as the missing key it is.
+        """
+        if isinstance(value, str) and not value.strip():
+            return None
+        return value
 
     @field_validator("sec_user_agent")
     @classmethod

@@ -1,10 +1,10 @@
 """Routine versus opportunistic insiders, after Cohen, Malloy and Pomorski (2012).
 
-Expectations come from the stated definitions: for an event in month M of year Y,
-an insider is routine if they traded in month M of each of Y-1, Y-2 and Y-3,
-opportunistic if they traded in each of those years but not that month every time,
-unclassified otherwise. Every history here is built by hand so a class can be
-derived without running the code.
+Expectations come from the stated definitions: for an event in year Y, an insider
+is routine if there is a calendar month in which they traded in each of Y-1, Y-2
+and Y-3, opportunistic if they traded in each of those years but in no common
+month, unclassified otherwise. The event's own month plays no part. Every history
+here is built by hand so a class can be derived without running the code.
 """
 
 import zipfile
@@ -13,7 +13,6 @@ from pathlib import Path
 
 import pytest
 
-from arbiter.arms.evaluate import IssuerScore
 from arbiter.evaluation import insider_type
 from arbiter.evaluation.insider_type import (
     MIXED,
@@ -33,6 +32,7 @@ from arbiter.evaluation.insider_type import (
 )
 from arbiter.evaluation.metrics import MIN_EVENTS_PER_DAY
 from arbiter.evaluation.report import render_baseline_report
+from arbiter.evaluation.scoring import IssuerScore
 from tests.unit.test_report import GENERATED
 from tests.unit.test_report import _evaluation as report_evaluation
 

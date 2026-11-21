@@ -14,7 +14,7 @@ import pytest
 
 from arbiter.ingestion import backfill as backfill_module
 from arbiter.ingestion.backfill import SystemicBackfillError, backfill
-from arbiter.ingestion.market import MissingCredentialsError
+from arbiter.ingestion.market import MissingCredentialsError, RejectedCredentialsError
 
 DAYS = [date(2026, 8, day) for day in (3, 4, 5, 6, 7)]
 
@@ -224,6 +224,21 @@ def test_a_missing_credential_stops_the_run_immediately(monkeypatch: pytest.Monk
         )
 
     assert attempted == [DAYS[0]], "the run stops on the first day, not the fourth"
+
+
+def test_a_refused_credential_stops_the_run_immediately(monkeypatch: pytest.MonkeyPatch):
+    """A 401 on the first day's prices will recur on every later day."""
+    monkeypatch.setattr(backfill_module, "_RETRY_BACKOFF_SECONDS", 0)
+    attempted: list[date] = []
+
+    def refused(day: date) -> int:
+        attempted.append(day)
+        raise RejectedCredentialsError("HTTP 401")
+
+    with pytest.raises(RejectedCredentialsError):
+        backfill(DAYS, ingest=lambda day: {}, resolve=refused, is_stored=lambda day: False)
+
+    assert attempted == [DAYS[0]]
 
 
 def test_packets_are_built_after_labels_for_each_day():

@@ -30,8 +30,9 @@ The conventional arm, measured on insider transactions:
 - **Broken down by issuer size and by insider type** (routine against
   opportunistic, after Cohen, Malloy and Pomorski, 2012): neither breakdown is a
   finding at this sample size. Small issuers show the largest coefficient
-  (t = 2.08 on one of three subsets), and only 12% of issuer-days have the three
-  years of trading history the insider-type split needs.
+  (t = 2.08 on one of three subsets). Only 22% of issuer-days have the three
+  years of trading history the insider-type split needs, and 12% land in its
+  table once days with too few issuers of a type are dropped.
 - A measurement of the control, not a strategy. Full report:
   [`reports/baseline-insider.md`](reports/baseline-insider.md).
 
@@ -63,13 +64,22 @@ trading only, always.
 
 ```bash
 git clone https://github.com/aidankaras/sec-filings-e6 && cd sec-filings-e6
-uv sync --all-extras
+uv sync --extra ledger
 cp .env.example .env                        # SEC_USER_AGENT, plus Alpaca keys for prices
 uv run arbiter ingest 2026-08-10            # one day of filings -> events
 uv run arbiter resolve 2026-08-10 insider   # once the outcome window has closed
 uv run arbiter backfill 2026-03-02 2026-08-14 --every 4
+uv run arbiter backfill 2026-06-01 2026-09-09 --with-packets   # packets feed the size table
+# SEC Insider Transactions Data Sets, 2023q1 to 2026q1, for the insider-type table
+mkdir -p data/raw/form345 && for q in 2023q{1,2,3,4} 2024q{1,2,3,4} 2025q{1,2,3,4} 2026q1; do
+  curl -fsSL -A "$SEC_USER_AGENT" -o data/raw/form345/${q}_form345.zip \
+    https://www.sec.gov/files/structureddata/data/insider-transactions-data-sets/${q}_form345.zip
+done
 uv run arbiter report --domain insider      # fit, score, write reports/
 ```
+
+Without packets or the data sets, `report` still runs and says which section it
+left out.
 
 [`docs/running-the-pipeline.md`](docs/running-the-pipeline.md) explains what each
 command records and why.
@@ -115,8 +125,12 @@ Downstream of the packet, nothing fetches. The agent analyst holds no tool but
 the one that returns its structured answer, and every call's own startup event
 is checked for that, so it cannot look anything up. The
 prediction ledger requires the hash of the packet each forecast was made from,
-which will make any published result reproducible and any silent change to
-packet construction detectable. The baseline arm predates the packets: it reads
+which ties every forecast to the exact evidence it saw and makes any change to a
+stored packet detectable. Prices in a packet are adjusted for splits and
+dividends as of the day the packet was built, so a packet rebuilt after a later
+corporate action holds different bars and a different hash; the stored packet,
+not a rebuild, is the record (see the known limitations in
+[`docs/methodology.md`](docs/methodology.md)). The baseline arm predates the packets: it reads
 the same filing fields from the event store and writes no ledger rows, and it
 moves onto packets alongside the first language-model arm.
 
@@ -149,7 +163,9 @@ the signal lives in prose and disappear where it lives in a table.
 ## Target and evaluation
 
 The primary target is five-trading-day abnormal return against a sector ETF,
-entered at the first open after the filing's acceptance timestamp. Every arm
+entered at the open of the first session after the (Eastern) day of the filing's
+acceptance, so a filing accepted before the open enters the next session rather
+than that morning's. Every arm
 emits a probability that the return is positive, so calibration is measurable
 for every arm, not only the language models.
 

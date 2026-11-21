@@ -1,0 +1,19 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+type: software
+title: "SEC filings: LLM agent vs conventional model"
+abstract: >-
+  Event-driven equity forecasting from SEC filings, with forecasting
+  approaches evaluated against identical point-in-time evidence.
+authors:
+  - family-names: Karas
+    given-names: Aidan
+version: 0.1.0
+license: MIT
+repository-code: "https://github.com/aidankaras/sec-filings-e6"
+keywords:
+  - sec-filings
+  - event-study
+  - forecasting
+  - llm-agents
+  - evaluation

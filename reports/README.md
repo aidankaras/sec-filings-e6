@@ -1,16 +1,23 @@
 # Results
 
 Measurements committed as they are produced, so that what was claimed at a given
-commit stays inspectable. A result recomputed against more data is a new report
-rather than an edit to the old one.
+commit stays inspectable. `arbiter report` writes `baseline-<domain>.md` and
+`.svg` in place, so a result recomputed against more data replaces the previous
+one; earlier versions are in the git history of each file
+(`git log -p reports/baseline-insider.md`). A result found to be wrong, rather
+than superseded, is moved to `withdrawn/` with the reason.
 
 ## What is here now
 
-`baseline-insider.md` — the baseline arm on insider transactions, computed
-2026-10-01 from 29 re-ingested days between March and August 2026. Mean
-information coefficient +0.121 (t = 3.09) over 11 scored days and 592
-issuer-days; Brier skill indistinguishable from forecasting a constant rate. One
-sample and one regime: a measurement of the control, not a strategy.
+`baseline-insider.md` — the baseline arm on insider transactions, generated
+2026-10-12: an initial fit on 26 days between 2026-03-02 and 2026-06-12, then
+every trading day from 2026-06-15 to 2026-09-09 (60 days) scored walk-forward. Mean
+information coefficient +0.0285 (t = 1.52) over 60 scored days and 3,909
+issuer-days, indistinguishable from zero; Brier skill -0.0015, indistinguishable
+from forecasting a constant rate. One sample and one regime: a measurement of the
+control, not a strategy. An earlier version of this file, computed 2026-10-01 on
+every fourth trading day, gave +0.121 (t = 3.09) over 11 scored days; the fuller
+sample did not bear it out.
 
 `baseline-insider.svg` — the same evaluation drawn as a figure: the information
 coefficient by scored day with its mean and two-standard-error band, and the
@@ -46,8 +53,9 @@ support the measurement.
 A weekly research log covering events processed, per-arm performance, where the
 arms disagreed and which was right, representative decisions with their
 reasoning, merged changes with their benchmark deltas, and cost against budget.
-That requires the three language-model arms and the shadow portfolios, none of
-which exist yet.
+That requires a scored run of the agent arm, the neural and arbiter arms, and the
+shadow portfolios; only the agent arm's analyst is built, and it has no scored
+run yet.
 
 ## How to read any figure here
 

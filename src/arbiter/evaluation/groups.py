@@ -12,7 +12,6 @@ from collections.abc import Callable, Mapping, Sequence
 from dataclasses import dataclass
 from datetime import date
 
-from arbiter.arms.evaluate import IssuerScore
 from arbiter.evaluation.metrics import (
     MIN_EVENTS_PER_DAY,
     ICSummary,
@@ -20,6 +19,7 @@ from arbiter.evaluation.metrics import (
     information_coefficient,
     summarise_ic,
 )
+from arbiter.evaluation.scoring import IssuerScore
 
 #: Maps one day's scored issuers to a group index per issuer CIK. An issuer absent
 #: from the mapping is ungrouped.

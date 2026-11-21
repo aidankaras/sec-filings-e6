@@ -9,10 +9,12 @@ rest is review discipline.
 `pyright` runs in strict mode over `src/`. Every public function is fully
 annotated, including return types.
 
-Types carry domain meaning rather than restating primitives. A function that
-accepts a `Ticker` and an `AsOf` is harder to misuse than one accepting two
-strings, and the compiler catches the argument-order mistake that would otherwise
-surface as a silently wrong backtest. Where a value has units, the type or the
+Types carry domain meaning rather than restating primitives where a primitive
+would be easy to misuse: an evidence packet is an `EvidencePacket`, a scored
+issuer-day an `IssuerScore`, and timestamps are timezone-aware `datetime`s that
+the packet schema rejects when naive. Tickers and acceptance instants are still
+plain `str` and `datetime`; wrapping them so the type checker catches an
+argument-order mistake is not done yet. Where a value has units, the type or the
 name says so: `abnormal_return_bps`, not `value`.
 
 Domain invariants are expressed in the type where possible. An `EvidencePacket`
@@ -27,10 +29,13 @@ network, no database. Fetching and persistence live in thin adapter modules.
 
 This is not stylistic. A pure core is what makes the evaluation harness able to
 replay two years of history in seconds, and it is what makes a failed prediction
-reproducible six months later from its packet hash alone.
+reproducible six months later from the stored packet its hash names.
 
 Modules have one reason to change. When a file grows past roughly 400 lines it is
-usually holding two responsibilities that want separating.
+usually holding two responsibilities that want separating. Three files are past
+that today and are candidates: `cli.py` (one command per function, the agent
+commands separable), `evaluation/resolution.py` (fetching windows and writing
+labels) and `evaluation/report.py` (the main table and the two breakdowns).
 
 ## Errors
 
@@ -74,12 +79,14 @@ path beat broad coverage of trivial paths.
 
 ## Determinism
 
-Every stochastic process records its seed alongside its output. Model training,
-sampling, cross-validation splits, and the screening sample all log seeds to the
-run record.
+Every stochastic process has a fixed, committed seed. The baseline's is
+`RANDOM_SEED` in `arms/baseline.py`, so the commit that produced a report records
+it; the report does not print it. The agent arm's samples come from a model
+call with no seed, so its forecasts are not regenerable and are kept instead:
+each sample is written to the append-only ledger before any outcome exists.
 
-Any result that cannot be regenerated from committed code plus a recorded seed
-plus a packet hash is not a result. This is the practical test applied before any
+Any result that cannot be regenerated from committed code plus its seed plus a
+packet hash, or read back from the ledger, is not a result. This is the practical test applied before any
 number goes into a report.
 
 ## Configuration
@@ -101,8 +108,8 @@ restate the signature.
 def abnormal_return(stock: PriceSeries, benchmark: PriceSeries, window: TradingWindow) -> float:
     """Return the stock's excess return over its benchmark across the window.
 
-    The window opens at the first market open strictly after the event
-    timestamp, which avoids attributing pre-event price action to the event.
+    The window opens at the first session after the event's Eastern date,
+    which avoids attributing pre-event price action to the event.
 
     Returns a simple return difference in decimal form, not basis points.
 
@@ -138,18 +145,18 @@ protection enforces four things, on administrators included:
 1. The four CI checks pass.
 2. The branch is current with the default branch.
 3. History stays linear.
-4. **Every review conversation is resolved.** An automated review runs on each
-   pull request and comments inline; merging is blocked until each of those
-   threads has been read and closed. Since a pull request cannot be approved by
-   its own author, this is what a single-maintainer repository can enforce in
-   place of a second approver, and it is the point where a person is required to
-   engage with what the review found.
+4. **Every review conversation is resolved.** Merging is blocked until each
+   inline review thread on a pull request has been read and closed. Since a pull
+   request cannot be approved by its own author, this is what a
+   single-maintainer repository can enforce in place of a second approver. No
+   automated reviewer runs on pull requests; the git-signoff check records that
+   a person attested to the change.
 
 Changes fall into two categories, and the second is where that engagement
 matters:
 
 - **Mechanically verifiable** — dependency bumps, formatting, regenerated
-  documentation, data refreshes. Automated review and passing CI are sufficient.
+  documentation, data refreshes. Passing CI is sufficient.
 - **Judgment-bearing** — prompts, features, model selection, screening rules, and
   anything touching evaluation methodology. These require human review regardless
   of what any automated reviewer concluded.

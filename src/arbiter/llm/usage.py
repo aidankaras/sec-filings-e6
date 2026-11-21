@@ -21,17 +21,6 @@ from arbiter.db.session import session_scope
 
 
 @dataclass(frozen=True)
-class ClaudeRunUsage:
-    """Token and cost totals for one `claude -p` invocation."""
-
-    session_id: str
-    total_cost_usd: Decimal
-    input_tokens: int
-    output_tokens: int
-    cache_read_tokens: int
-
-
-@dataclass(frozen=True)
 class ModelUsage:
     """Tokens and cost attributed to a single model within one run."""
 
@@ -75,22 +64,6 @@ def _money(value: object) -> Decimal:
     error that accumulates across thousands of calls.
     """
     return Decimal(str(value))
-
-
-def parse_claude_run(payload: Mapping[str, Any]) -> ClaudeRunUsage:
-    """Summarize one run's totals from a `--output-format json` payload.
-
-    Raises:
-        ValueError: a required field is absent.
-    """
-    usage = _require(payload, "usage")
-    return ClaudeRunUsage(
-        session_id=str(_require(payload, "session_id")),
-        total_cost_usd=_money(_require(payload, "total_cost_usd")),
-        input_tokens=int(_require(usage, "input_tokens")),
-        output_tokens=int(_require(usage, "output_tokens")),
-        cache_read_tokens=int(usage.get("cache_read_input_tokens", 0)),
-    )
 
 
 def parse_model_usage(payload: Mapping[str, Any]) -> list[ModelUsage]:

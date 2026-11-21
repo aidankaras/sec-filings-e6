@@ -81,7 +81,7 @@ def test_a_feature_the_screen_makes_constant_is_not_declared(excluded: str):
 def test_the_declared_features_vary_across_events_the_screen_admits():
     """Every remaining column must actually distinguish one admitted event from another."""
     varied = [
-        event_features(_row(transaction_code="P", position="CEO", cluster_seed=0), 3),
+        event_features(_row(transaction_code="P", position="CEO"), 3),
         event_features(
             _row(
                 transaction_code="S",

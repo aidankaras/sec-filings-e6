@@ -46,14 +46,19 @@ Modules that exist today:
 
 | Module | Responsibility | Depends on |
 |---|---|---|
-| `ingestion` | EDGAR client, filing parsers, market data, event store | `events` |
+| `ingestion` | EDGAR client, filing parsers, market data, event store, backfill | `events`, `evaluation` and `packets` (backfill only) |
 | `events` | Trigger evaluation, event normalization | `ingestion` |
-| `evaluation` | Abnormal return labels | — |
-| `arms` | Conventional baseline: features, fitting, out-of-sample scoring | `evaluation` |
+| `evaluation` | Abnormal return labels, metrics, the scored-result types, reports and figures | `ingestion`, `packets` |
+| `arms` | Conventional baseline: features, fitting, out-of-sample scoring; the agent-against-baseline comparison | `evaluation`, `ingestion` |
 | `arms.agent` | Language-model analyst: prompt, isolated runtime, runner, ledger access | `packets`, `llm`, `db` |
 | `packets` | Packet schema, content hashing, point-in-time enforcement | `ingestion` |
 | `llm` | Usage metering and spend ceilings | `db` |
 | `db` | Models, session management, migrations | — |
+
+`evaluation` never imports from `arms`: an arm's results are scored into the
+types in `evaluation/scoring.py`, which the report, figure and breakdowns read
+(`tests/unit/test_module_boundaries.py`). `backfill` is the orchestration
+exception in `ingestion`, calling label resolution and the packet store.
 
 Modules the design calls for, not yet written. They are described here so the
 boundaries are settled before code arrives; the packages are created when their
@@ -96,7 +101,10 @@ are embedded.
 
 ## Model routing
 
-*Design for the language-model arms, none of which is built yet.*
+*Design for the language-model arms. Of these, only the agent analyst is built,
+and it runs differently from the table: one analyst through headless Claude
+Code (`claude -p`, `arms/agent/runtime.py`), with no LangGraph and no Agent SDK.
+The rest of the table is planned.*
 
 Inference is confined to two tasks: extracting structure from filing text, and
 producing a judgment from a packet. Everything else — routing, classification,
@@ -126,7 +134,7 @@ any outcome. Re-running a day produces the same result.
 ## Scheduling and deployment
 
 *Planned. Today the pipeline runs from the command line, and GitHub Actions runs
-CI, an automated pull-request review and an on-demand standards audit; none of
+CI, the git-signoff attestation check and an on-demand standards audit; none of
 the scheduled jobs below is built.* The intended schedule:
 
 | Cadence | Work | Inference cost |
