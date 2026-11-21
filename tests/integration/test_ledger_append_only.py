@@ -64,3 +64,19 @@ def test_the_guard_also_covers_the_usage_ledger(migrated_database: str) -> None:
     """Cost records are evidence too, so they carry the same protection."""
     with pytest.raises(DatabaseError, match="append-only"), session_scope() as session:
         session.execute(text("UPDATE llm_calls SET cost_usd = 0"))
+
+
+@pytest.mark.parametrize(
+    "statement",
+    [
+        "TRUNCATE predictions CASCADE",
+        "TRUNCATE llm_calls",
+        "TRUNCATE agent_exclusions",
+    ],
+)
+def test_truncating_a_ledger_table_is_rejected_by_the_database(
+    migrated_database: str, statement: str
+) -> None:
+    """TRUNCATE fires no DELETE trigger, so it needs a guard of its own."""
+    with pytest.raises(DatabaseError, match="append-only"), session_scope() as session:
+        session.execute(text(statement))
