@@ -64,7 +64,7 @@ trading only, always.
 
 ```bash
 git clone https://github.com/aidankaras/sec-filings-e6 && cd sec-filings-e6
-uv sync --all-extras
+uv sync --extra ledger
 cp .env.example .env                        # SEC_USER_AGENT, plus Alpaca keys for prices
 uv run arbiter ingest 2026-08-10            # one day of filings -> events
 uv run arbiter resolve 2026-08-10 insider   # once the outcome window has closed

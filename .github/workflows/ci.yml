@@ -39,7 +39,7 @@ jobs:
         run: uv python install 3.12
 
       - name: Install dependencies
-        run: uv sync --frozen --all-extras
+        run: uv sync --frozen --extra ledger
 
       - name: Lint
         run: uv run ruff check --output-format=github .
@@ -71,15 +71,9 @@ jobs:
         # Audits the exported dependency set rather than the installed
         # environment, because the project itself is not published to PyPI and
         # cannot be resolved.
-        #
-        # Local version identifiers are stripped before auditing. Torch resolves
-        # to a `+cpu` wheel that exists only on the PyTorch index, and advisories
-        # are published against the upstream version regardless.
         run: |
           uv export --frozen --all-extras --no-emit-project --no-hashes \
-            --format requirements-txt -o requirements-export.txt
-          sed -E 's/^([A-Za-z0-9._-]+==[0-9][^+ ]*)\+[A-Za-z0-9.]+/\1/' \
-            requirements-export.txt > requirements-audit.txt
+            --format requirements-txt -o requirements-audit.txt
           uvx pip-audit --no-deps --requirement requirements-audit.txt
 
   secrets:

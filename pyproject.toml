@@ -28,25 +28,10 @@ dependencies = [
 ]
 
 [project.optional-dependencies]
-api = [
-    "fastapi>=0.162.0",
-    "uvicorn[standard]>=0.54.0",
-    "jinja2>=3.1",
-]
-llm = [
-    "anthropic>=2.3.0",
-    "claude-agent-sdk>=0.2.176",
-    "openai>=3.42.0",
-    "langgraph>=0.2.50",
-]
-ml = [
-    "xgboost>=2.1",
-    "torch>=2.15.0",
-    "transformers>=5.22.1",
-    "peft>=0.21.2",
-    "sentence-transformers>=6.2.0",
-]
-broker = ["alpaca-py>=0.33"]
+# Dependencies for the planned dashboard, neural arm, API-based extraction and
+# broker are added with the code that imports them, not before: an unused extra
+# still costs every install, and the neural arm's would pull torch.
+#
 # Embedded Postgres for running the append-only ledger on a machine without a
 # database server. Also in the dev group, where the test suite needs it.
 ledger = ["pgserver>=0.1.4"]
@@ -65,19 +50,6 @@ dev = [
 
 [project.scripts]
 arbiter = "arbiter.cli:app"
-
-[tool.uv]
-# CPU-only torch wheels. This project has no GPU budget: the neural arm trains on
-# free hosted GPU runtimes and is served on CPU. Pulling CUDA builds would add
-# roughly two gigabytes to every environment, including every CI run, for
-# hardware that is never present.
-[[tool.uv.index]]
-name = "pytorch-cpu"
-url = "https://download.pytorch.org/whl/cpu"
-explicit = true
-
-[tool.uv.sources]
-torch = { index = "pytorch-cpu" }
 
 [build-system]
 requires = ["hatchling"]
