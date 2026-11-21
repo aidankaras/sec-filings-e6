@@ -16,8 +16,8 @@ import math
 from collections.abc import Callable
 from xml.sax.saxutils import escape
 
-from arbiter.arms.evaluate import Evaluation
 from arbiter.evaluation.metrics import defined_ic
+from arbiter.evaluation.scoring import Evaluation
 
 _WIDTH = 880
 _HEIGHT = 340

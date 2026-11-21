@@ -62,9 +62,9 @@ from zoneinfo import ZoneInfo
 import pyarrow as pa
 import pyarrow.parquet as pq
 
-from arbiter.arms.evaluate import IssuerScore
 from arbiter.evaluation.groups import ic_within_groups
 from arbiter.evaluation.metrics import ICSummary
+from arbiter.evaluation.scoring import IssuerScore
 
 ROUTINE = "routine"
 OPPORTUNISTIC = "opportunistic"

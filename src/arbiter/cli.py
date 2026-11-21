@@ -560,7 +560,7 @@ def agent_compare(
     from arbiter.arms.agent.ledger import PgLedger
     from arbiter.arms.agent.prompt import prompt_version
     from arbiter.arms.agent.run import SCORED_FROM
-    from arbiter.evaluation.comparison import compare
+    from arbiter.arms.comparison import compare
 
     _local_ledger(Path(ledger_dir))
     version = prompt_version_ or prompt_version()

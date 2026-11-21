@@ -102,8 +102,8 @@ def test_agent_compare_reads_the_forecasts_of_the_version_it_is_given(
     monkeypatch: pytest.MonkeyPatch,
 ) -> None:
     # The version hashes the code; an edit after the run must not hide its forecasts.
+    from arbiter.arms import comparison
     from arbiter.arms.agent import ledger
-    from arbiter.evaluation import comparison
 
     asked: list[str] = []
 
@@ -148,7 +148,7 @@ def test_agent_compare_names_a_version_with_no_forecasts(
 def test_agent_compare_scores_the_preregistered_window_with_the_horizon_overlap(
     monkeypatch: pytest.MonkeyPatch,
 ) -> None:
-    from arbiter.evaluation import comparison
+    from arbiter.arms import comparison
 
     seen: dict[str, object] = {}
 
@@ -165,7 +165,7 @@ def test_agent_compare_scores_the_preregistered_window_with_the_horizon_overlap(
 def test_agent_compare_on_a_partly_run_window_says_so_and_exits_non_zero(
     monkeypatch: pytest.MonkeyPatch,
 ) -> None:
-    from arbiter.evaluation import comparison
+    from arbiter.arms import comparison
 
     summary = SimpleNamespace(mean=0.1, standard_error=0.01, t_statistic=10.0, days=2)
     partial = SimpleNamespace(

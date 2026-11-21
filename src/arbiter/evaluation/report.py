@@ -15,9 +15,9 @@ import math
 from collections.abc import Iterable, Sequence
 from datetime import date
 
-from arbiter.arms.evaluate import Evaluation
 from arbiter.evaluation.insider_type import TypeBreakdown
 from arbiter.evaluation.metrics import MIN_EVENTS_PER_DAY, ICSummary
+from arbiter.evaluation.scoring import Evaluation
 from arbiter.evaluation.size import SIZE_SESSIONS, BucketIC, SizeBreakdown
 
 #: Width of the bar drawn beside each calibration band, in characters. A drawn

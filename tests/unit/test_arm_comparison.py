@@ -5,9 +5,9 @@ from datetime import date, timedelta
 
 import pytest
 
+from arbiter.arms.comparison import WindowNotScoredError, compare, daily_ic
 from arbiter.arms.evaluate import DayOfEvents, evaluate_baseline, forecast_walk_forward
 from arbiter.arms.features import FEATURE_NAMES
-from arbiter.evaluation.comparison import WindowNotScoredError, compare, daily_ic
 
 START = date(2026, 3, 2)
 DAYS = [START + timedelta(days=offset) for offset in range(40)]

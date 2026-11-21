@@ -11,9 +11,9 @@ import xml.etree.ElementTree as ElementTree
 from dataclasses import replace
 from datetime import date
 
-from arbiter.arms.evaluate import Evaluation, Fold
 from arbiter.evaluation.figure import render_baseline_figure
 from arbiter.evaluation.metrics import CalibrationBin, ICSummary
+from arbiter.evaluation.scoring import Evaluation, Fold
 
 SVG = "{http://www.w3.org/2000/svg}"
 

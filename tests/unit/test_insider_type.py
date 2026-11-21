@@ -13,7 +13,6 @@ from pathlib import Path
 
 import pytest
 
-from arbiter.arms.evaluate import IssuerScore
 from arbiter.evaluation import insider_type
 from arbiter.evaluation.insider_type import (
     MIXED,
@@ -33,6 +32,7 @@ from arbiter.evaluation.insider_type import (
 )
 from arbiter.evaluation.metrics import MIN_EVENTS_PER_DAY
 from arbiter.evaluation.report import render_baseline_report
+from arbiter.evaluation.scoring import IssuerScore
 from tests.unit.test_report import GENERATED
 from tests.unit.test_report import _evaluation as report_evaluation
 

@@ -98,7 +98,7 @@ before the pilot.
 
 ## Scoring
 
-`evaluation/comparison.py` scores both arms with the baseline's own machinery:
+`arms/comparison.py` scores both arms with the baseline's own machinery:
 the walk-forward forecasts, the crediting of a day's filings to one forecast per
 issuer, the daily information coefficient and the overlap-robust standard error
 (five lags, the outcome horizon).

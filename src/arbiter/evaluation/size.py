@@ -32,9 +32,9 @@ from datetime import date
 from pathlib import Path
 from typing import TYPE_CHECKING
 
-from arbiter.arms.evaluate import IssuerScore
 from arbiter.evaluation.groups import ic_within_groups
 from arbiter.evaluation.metrics import ICSummary
+from arbiter.evaluation.scoring import IssuerScore
 from arbiter.packets.schema import EvidencePacket, SessionBar
 from arbiter.packets.store import partition_exists, read_packets
 

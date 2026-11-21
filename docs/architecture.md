@@ -46,14 +46,19 @@ Modules that exist today:
 
 | Module | Responsibility | Depends on |
 |---|---|---|
-| `ingestion` | EDGAR client, filing parsers, market data, event store | `events` |
+| `ingestion` | EDGAR client, filing parsers, market data, event store, backfill | `events`, `evaluation` and `packets` (backfill only) |
 | `events` | Trigger evaluation, event normalization | `ingestion` |
-| `evaluation` | Abnormal return labels | — |
-| `arms` | Conventional baseline: features, fitting, out-of-sample scoring | `evaluation` |
+| `evaluation` | Abnormal return labels, metrics, the scored-result types, reports and figures | `ingestion`, `packets` |
+| `arms` | Conventional baseline: features, fitting, out-of-sample scoring; the agent-against-baseline comparison | `evaluation`, `ingestion` |
 | `arms.agent` | Language-model analyst: prompt, isolated runtime, runner, ledger access | `packets`, `llm`, `db` |
 | `packets` | Packet schema, content hashing, point-in-time enforcement | `ingestion` |
 | `llm` | Usage metering and spend ceilings | `db` |
 | `db` | Models, session management, migrations | — |
+
+`evaluation` never imports from `arms`: an arm's results are scored into the
+types in `evaluation/scoring.py`, which the report, figure and breakdowns read
+(`tests/unit/test_module_boundaries.py`). `backfill` is the orchestration
+exception in `ingestion`, calling label resolution and the packet store.
 
 Modules the design calls for, not yet written. They are described here so the
 boundaries are settled before code arrives; the packages are created when their
