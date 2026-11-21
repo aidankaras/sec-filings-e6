@@ -337,8 +337,16 @@ benchmark that moves with the system it measures measures nothing.
 - **Sector ETFs are a crude benchmark.** They do not adjust for size, value, or
   momentum exposure, so abnormal returns retain factor loadings. A factor-model
   benchmark is a planned refinement.
-- **Screening restricts the LLM arms' population.** Mitigated by the control
-  sample, not eliminated.
+- **Packet prices are adjusted as of the build date, not the event.** Bars are
+  fetched with `adjustment=all`, so a split or dividend after the filing but
+  before the packet was built rescales every bar in it. The price level an
+  arm sees can then differ from what was quoted at the time, and rebuilding a
+  packet after a later corporate action changes its bars and its hash. The
+  stored packet and its hash remain the record of what an arm saw; a rebuild is
+  not guaranteed to reproduce it. Unadjusted bars would avoid this but put a
+  false jump into the trailing return and volatility at any split inside the
+  lookback; the fix is unadjusted bars adjusted only for corporate actions
+  announced by `as_of`, which is not built.
 - **Shadow portfolios model transaction costs rather than experiencing them.**
   Slippage on less liquid names is understated.
 - **Survivorship.** The issuer universe is constructed from filings, so companies

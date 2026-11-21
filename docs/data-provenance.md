@@ -27,7 +27,10 @@ used as point-in-time context.
 
 **Source:** Alpaca's market data API on its Basic plan. Bars come from the
 consolidated tape, which the plan serves for every window except one ending on
-the current session. News is sourced by Alpaca from Benzinga.
+the current session. Bars are requested adjusted for splits and dividends
+(`adjustment=all`) as of the day they are fetched, so labels and packets built
+on different days can see different price levels for the same session; see the
+known limitations in `docs/methodology.md`.
 
 **Terms:** market data is licensed to the account holder for their own use.
 **No price or news content is redistributed by this repository.** Committed

@@ -116,8 +116,12 @@ Downstream of the packet, nothing fetches. The agent analyst holds no tool but
 the one that returns its structured answer, and every call's own startup event
 is checked for that, so it cannot look anything up. The
 prediction ledger requires the hash of the packet each forecast was made from,
-which will make any published result reproducible and any silent change to
-packet construction detectable. The baseline arm predates the packets: it reads
+which ties every forecast to the exact evidence it saw and makes any change to a
+stored packet detectable. Prices in a packet are adjusted for splits and
+dividends as of the day the packet was built, so a packet rebuilt after a later
+corporate action holds different bars and a different hash; the stored packet,
+not a rebuild, is the record (see the known limitations in
+[`docs/methodology.md`](docs/methodology.md)). The baseline arm predates the packets: it reads
 the same filing fields from the event store and writes no ledger rows, and it
 moves onto packets alongside the first language-model arm.
 

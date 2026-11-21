@@ -27,7 +27,7 @@ network, no database. Fetching and persistence live in thin adapter modules.
 
 This is not stylistic. A pure core is what makes the evaluation harness able to
 replay two years of history in seconds, and it is what makes a failed prediction
-reproducible six months later from its packet hash alone.
+reproducible six months later from the stored packet its hash names.
 
 Modules have one reason to change. When a file grows past roughly 400 lines it is
 usually holding two responsibilities that want separating.

@@ -85,7 +85,9 @@ class SessionBar(_Frozen):
     Distinct from `ingestion.market.Bar`, which is shaped by the price vendor
     and timestamped at the session's start. This type is part of a published,
     hashed artefact: if the vendor changes its field names or its timestamp
-    convention, packet hashes must not move with it.
+    convention, packet hashes must not move with it. Prices are split- and
+    dividend-adjusted as of the day the bars were fetched, so a corporate action
+    after that day changes them, and the hash, on a rebuild.
     """
 
     session: date
