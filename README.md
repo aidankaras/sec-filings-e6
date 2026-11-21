@@ -30,8 +30,9 @@ The conventional arm, measured on insider transactions:
 - **Broken down by issuer size and by insider type** (routine against
   opportunistic, after Cohen, Malloy and Pomorski, 2012): neither breakdown is a
   finding at this sample size. Small issuers show the largest coefficient
-  (t = 2.08 on one of three subsets), and only 12% of issuer-days have the three
-  years of trading history the insider-type split needs.
+  (t = 2.08 on one of three subsets). Only 22% of issuer-days have the three
+  years of trading history the insider-type split needs, and 12% land in its
+  table once days with too few issuers of a type are dropped.
 - A measurement of the control, not a strategy. Full report:
   [`reports/baseline-insider.md`](reports/baseline-insider.md).
 

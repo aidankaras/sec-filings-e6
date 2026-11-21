@@ -218,9 +218,9 @@ def report(
 
     Reads every day the store holds labels for, fits on the first
     `--initial-fraction` of them, then scores the rest walk-forward, refitting
-    every `--refit-every` scored days. The report is written to `reports/` so that what
-    was claimed at a given commit stays inspectable; recomputing against more
-    data produces a new report rather than an edit to the old one.
+    every `--refit-every` scored days. The report and its figure are written to
+    `--out` as `baseline-<domain>.md` and `.svg`, replacing any earlier run's;
+    earlier results stay inspectable in the git history of the committed files.
 
     The information coefficient by issuer size is read from the evidence packets under
     `--packet-root`; with no packet partition for any scored day that section is

@@ -6,8 +6,7 @@ how far the estimate sits from zero relative to its own uncertainty. A single
 number without those is not a finding.
 
 The report is written as Markdown and committed, so that what was claimed at a
-given commit stays inspectable — a result recomputed later against more data is
-a new report, not an edit to the old one.
+given commit stays inspectable in the repository's history.
 """
 
 from __future__ import annotations
