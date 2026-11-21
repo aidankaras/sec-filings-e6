@@ -149,8 +149,7 @@ protection enforces four things, on administrators included:
    inline review thread on a pull request has been read and closed. Since a pull
    request cannot be approved by its own author, this is what a
    single-maintainer repository can enforce in place of a second approver. No
-   automated reviewer runs on pull requests; the git-signoff check records that
-   a person attested to the change.
+   automated reviewer runs on pull requests.
 
 Changes fall into two categories, and the second is where that engagement
 matters:

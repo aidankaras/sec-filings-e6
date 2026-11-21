@@ -3,7 +3,6 @@
 [![CI](https://github.com/aidankaras/sec-filings-e6/actions/workflows/ci.yml/badge.svg)](https://github.com/aidankaras/sec-filings-e6/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![Python 3.12](https://img.shields.io/badge/python-3.12-blue.svg)](pyproject.toml)
-[![attested by humans](https://github.com/aidankaras/sec-filings-e6/actions/workflows/git-signoff.yml/badge.svg)](https://github.com/aidankaras/sec-filings-e6/actions/workflows/git-signoff.yml)
 
 **Does an LLM agent beat a conventional model at forecasting equity moves from SEC
 filings, when both see exactly the same information?** This repository is built
