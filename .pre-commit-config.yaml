@@ -2,8 +2,6 @@
 # the unit suite, and gitleaks (the version CI downloads). Keep the revs below
 # in step with uv.lock and GITLEAKS_VERSION in .github/workflows/ci.yml.
 # Pyright and pytest run through `uv run`, so they use the locked environment.
-# The vendored git-signoff skill and its records are kept byte-identical.
-exclude: ^(\.claude/skills/git-signoff/|\.git-signoff/)
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v5.0.0
