@@ -50,8 +50,7 @@ class PacketIntegrityError(RuntimeError):
     the partition and break the link between a prediction and its input.
 
     Tampering surfaces elsewhere, at the prediction that recorded the earlier
-    hash. An earlier version of this docstring claimed otherwise; the test that
-    proves it wrong is in `tests/unit/test_packet_store.py`.
+    hash (`tests/unit/test_packet_store.py`).
     """
 
 

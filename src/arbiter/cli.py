@@ -656,11 +656,9 @@ def backfill(
             fetch_bars=fetch,
             benchmark_for=benchmark_for_issuer,
         )
-        # `build_day` persists the exclusions beside the packets; this line only
-        # surfaces them in the run's own output. Discarding the second element
-        # here once meant a backfill reported a count and nothing else, leaving
-        # the difference between the event store and the packet store
-        # unexplained for every day it wrote.
+        # `build_day` persists the exclusions beside the packets; this line
+        # surfaces them in the run's output, so a gap between the event store
+        # and the packet store is explained as it is written.
         if excluded:
             typer.echo(f"  {day.isoformat()}: {len(excluded)} events excluded from packets")
         return written

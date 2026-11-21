@@ -35,7 +35,6 @@ def event(accession: str, insider: str = "Gifford Kathryn", cik: int = 764180) -
 def label(accession: str) -> Label:
     return Label(
         accession_no=accession,
-        ticker="MO",
         benchmark_symbol="XLP",
         abnormal_return=Decimal("0.012"),
         horizon_days=5,

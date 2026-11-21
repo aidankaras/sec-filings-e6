@@ -65,6 +65,6 @@ Three options, in the order they should be considered:
 
 Ingestion, labelling and exclusion recording work correctly for this domain —
 1,312 events across 26 days resolved to labels through the same path as the
-insider arm, with the same point-in-time discipline and the same twenty-session
-horizon. The gap is not in the pipeline. It is that the screened population
+insider arm, with the same point-in-time discipline, over the red-flag
+domain's twenty-session horizon (insider events use five). The gap is not in the pipeline. It is that the screened population
 cannot support the measurement the domain was defined to make.

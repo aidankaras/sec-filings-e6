@@ -175,8 +175,7 @@ class SystemicUnmeasurableError(RuntimeError):
     Distinct from an individual unresolvable event, which is ordinary. A day
     where nearly every event fails shares one cause — a window that ends before
     the horizon closes, a feed refusing the range — and writing it as a day that
-    simply produced few labels is what let such a defect run undetected across a
-    whole backfill.
+    simply produced few labels would hide that defect for a whole backfill.
     """
 
 
@@ -445,7 +444,7 @@ def resolve_day(
         A label per measurable event, in the order the events were given, and a
         record per ripe event that produced none. The second is not a detail: a
         day whose events were all ripe and all unmeasurable is a broken window
-        or a refused feed, and returning only the empty label list is what let
+        or a refused feed, and returning only the empty label list would let
         such a day be written as a quiet one.
 
     Raises:

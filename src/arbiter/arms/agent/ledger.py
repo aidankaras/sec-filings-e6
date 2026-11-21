@@ -131,7 +131,7 @@ class PgLedger:
 
     def excluded_events(self, prompt_version: str, event_ids: Sequence[str]) -> set[str]:
         """Return which of `event_ids` belong to any recorded exclusion."""
-        # ponytail: reads every exclusion of the version; a few hundred at most.
+        # Reads every exclusion of the version; a few hundred at most.
         with session_scope() as session:
             recorded = session.execute(
                 select(AgentExclusion.event_ids).where(
