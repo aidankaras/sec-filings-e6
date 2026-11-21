@@ -392,7 +392,11 @@ def ledger_up(ledger_dir: str = "data/ledger") -> None:
     os.environ["DATABASE_URL"] = url
     get_settings.cache_clear()
     get_engine.cache_clear()
-    upgrade_to_head()
+    try:
+        upgrade_to_head()
+    except FileNotFoundError as exc:
+        typer.echo(str(exc), err=True)
+        raise typer.Exit(code=1) from None
     typer.echo(f'DATABASE_URL="{url}"')
 
 

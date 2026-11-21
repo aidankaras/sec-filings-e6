@@ -66,6 +66,11 @@ starts it in `data/ledger/`, applies every migration, and prints the
 keeps running after the command exits but not across a reboot, which is why the
 agent commands start it themselves when it is down.
 
+`ledger-up` and the agent commands run from a checkout of the repository, not
+from the Docker image: the migrations are not part of the installed package,
+and the agent needs a logged-in `claude` CLI on the host. The agent commands
+accept only the local ledger's URL, not the Compose Postgres service.
+
 ## Migrations
 
 Migrations read the database URL from the validated settings object, so the
