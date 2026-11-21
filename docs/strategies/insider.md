@@ -46,9 +46,12 @@ manufacture apparent alpha that does not survive correction.
 At roughly 1,400 filings per trading day, this strategy alone would exhaust the
 entire inference budget several times over if each filing reached a model.
 
-It does not. Parsing, classification, and feature construction are deterministic.
-Only events surviving the screening rule reach an LLM arm, which is a small
-fraction of a percent of daily volume.
+Parsing, classification, and feature construction are deterministic, and
+filtering to open-market purchases and sales leaves about 145 labelled events a
+day (8,715 over the 60 scored days of the baseline report). The agent arm
+forecasts every issuer-day in its window, with one call per sample per
+issuer-day rather than per filing. Screening, which would send only a fraction
+of events to an LLM arm, is designed but not built.
 
 ## Expected result
 

@@ -2,8 +2,8 @@
 
 ## Telemetry
 
-*Planned for the language-model arms; no model runs today.* Their runs will
-export OpenTelemetry metrics and logs carrying per-request cost, token counts,
+*Planned.* The agent arm records cost and tokens for every call in the
+`llm_calls` table (below), but exports no telemetry. Runs will export OpenTelemetry metrics and logs carrying per-request cost, token counts,
 model, and the originating subagent or skill. Any OTLP-compatible backend can
 receive them; the variables below target Langfuse Cloud.
 

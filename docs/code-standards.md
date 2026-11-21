@@ -138,18 +138,18 @@ protection enforces four things, on administrators included:
 1. The four CI checks pass.
 2. The branch is current with the default branch.
 3. History stays linear.
-4. **Every review conversation is resolved.** An automated review runs on each
-   pull request and comments inline; merging is blocked until each of those
-   threads has been read and closed. Since a pull request cannot be approved by
-   its own author, this is what a single-maintainer repository can enforce in
-   place of a second approver, and it is the point where a person is required to
-   engage with what the review found.
+4. **Every review conversation is resolved.** Merging is blocked until each
+   inline review thread on a pull request has been read and closed. Since a pull
+   request cannot be approved by its own author, this is what a
+   single-maintainer repository can enforce in place of a second approver. No
+   automated reviewer runs on pull requests; the git-signoff check records that
+   a person attested to the change.
 
 Changes fall into two categories, and the second is where that engagement
 matters:
 
 - **Mechanically verifiable** — dependency bumps, formatting, regenerated
-  documentation, data refreshes. Automated review and passing CI are sufficient.
+  documentation, data refreshes. Passing CI is sufficient.
 - **Judgment-bearing** — prompts, features, model selection, screening rules, and
   anything touching evaluation methodology. These require human review regardless
   of what any automated reviewer concluded.

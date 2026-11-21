@@ -96,7 +96,10 @@ are embedded.
 
 ## Model routing
 
-*Design for the language-model arms, none of which is built yet.*
+*Design for the language-model arms. Of these, only the agent analyst is built,
+and it runs differently from the table: one analyst through headless Claude
+Code (`claude -p`, `arms/agent/runtime.py`), with no LangGraph and no Agent SDK.
+The rest of the table is planned.*
 
 Inference is confined to two tasks: extracting structure from filing text, and
 producing a judgment from a packet. Everything else — routing, classification,
@@ -126,7 +129,7 @@ any outcome. Re-running a day produces the same result.
 ## Scheduling and deployment
 
 *Planned. Today the pipeline runs from the command line, and GitHub Actions runs
-CI, an automated pull-request review and an on-demand standards audit; none of
+CI, the git-signoff attestation check and an on-demand standards audit; none of
 the scheduled jobs below is built.* The intended schedule:
 
 | Cadence | Work | Inference cost |
