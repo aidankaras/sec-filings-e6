@@ -27,7 +27,10 @@ _PAPER_TRADING_HOSTS = frozenset({"paper-api.alpaca.markets"})
 
 
 class Environment(StrEnum):
-    """Deployment environment, which gates destructive and live-trading paths."""
+    """Deployment environment.
+
+    Validated and shown by `arbiter check`; no code path branches on it yet.
+    """
 
     DEVELOPMENT = "development"
     CI = "ci"
@@ -50,6 +53,7 @@ class Settings(BaseSettings):
     )
 
     environment: Environment = Environment.DEVELOPMENT
+    #: Accepted so existing `.env` files stay valid; nothing logs through it yet.
     log_level: str = "INFO"
 
     sec_user_agent: str = Field(

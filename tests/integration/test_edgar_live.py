@@ -2,13 +2,17 @@ from datetime import date
 
 import pytest
 
-from arbiter.ingestion.edgar import daily_filings, filings_with_objects
+from arbiter.ingestion.edgar import FilingRecord, filings_with_objects
 
 pytestmark = pytest.mark.integration
 
 # A settled trading day. Using a fixed past date keeps the assertions stable:
 # EDGAR does not revise the filings accepted on a completed day.
 SETTLED_DAY = date(2026, 9, 11)
+
+
+def daily_filings(form: str, on: date) -> list[FilingRecord]:
+    return [record for record, _ in filings_with_objects(form, on)]
 
 
 def test_a_settled_day_returns_form_4_filings():

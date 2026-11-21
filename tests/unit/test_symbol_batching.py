@@ -20,7 +20,6 @@ from arbiter.ingestion import market
 from arbiter.ingestion.market import (
     SystemicRejectionError,
     daily_bars_tolerating_gaps,
-    is_tradeable_symbol,
     tradeable_symbol,
 )
 
@@ -31,7 +30,7 @@ TODAY = date(2026, 9, 17)
 
 @pytest.mark.parametrize("symbol", ["MO", "AGNC", "CAVA", "BRK.B", "agnc", " MO "])
 def test_a_plain_equity_symbol_is_accepted(symbol: str):
-    assert is_tradeable_symbol(symbol)
+    assert tradeable_symbol(symbol) is not None
 
 
 @pytest.mark.parametrize(
@@ -50,7 +49,7 @@ def test_a_plain_equity_symbol_is_accepted(symbol: str):
     ],
 )
 def test_anything_that_is_not_a_plain_equity_symbol_is_refused(symbol: object):
-    assert not is_tradeable_symbol(symbol)
+    assert tradeable_symbol(symbol) is None
 
 
 def _responding(refused: set[str]):

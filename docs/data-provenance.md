@@ -26,10 +26,10 @@ and 5 (`YYYYqN_form345.zip`), downloaded by hand into `data/raw/form345` (see
 breakdown, which classifies an insider from three prior years of trading. Also
 public domain; not redistributed.
 
-## Market data and news
+## Market data
 
-**What:** daily bars for issuers and sector benchmark funds, and news articles
-used as point-in-time context.
+**What:** daily bars for issuers and sector benchmark funds. No news is
+fetched; packets carry the filing, issuer identity and bars only.
 
 **Source:** Alpaca's market data API on its Basic plan. Bars come from the
 consolidated tape, which the plan serves for every window except one ending on
@@ -39,7 +39,7 @@ on different days can see different price levels for the same session; see the
 known limitations in `docs/methodology.md`.
 
 **Terms:** market data is licensed to the account holder for their own use.
-**No price or news content is redistributed by this repository.** Committed
+**No price content is redistributed by this repository.** Committed
 fixtures contain a small number of records captured for regression testing, not
 a dataset.
 

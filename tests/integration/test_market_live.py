@@ -1,4 +1,4 @@
-from datetime import UTC, date, datetime, timedelta
+from datetime import date, timedelta
 from decimal import Decimal
 
 import pytest
@@ -7,7 +7,6 @@ from arbiter.ingestion.market import (
     RecentSipWindowError,
     daily_bars,
     newest_permitted_end,
-    recent_news,
 )
 
 pytestmark = pytest.mark.integration
@@ -61,16 +60,3 @@ def test_the_newest_permitted_end_is_actually_served():
     bars = daily_bars([ISSUER], end - timedelta(days=10), end, today=today)
 
     assert bars[ISSUER]
-
-
-def test_live_news_is_filtered_to_evidence_predating_the_event():
-    as_of = datetime(2026, 8, 28, tzinfo=UTC)
-
-    articles = recent_news(ISSUER, start=datetime(2026, 8, 1, tzinfo=UTC), as_of=as_of)
-
-    assert articles
-    for article in articles:
-        created = datetime.fromisoformat(article["created_at"].replace("Z", "+00:00"))
-        updated = datetime.fromisoformat(article["updated_at"].replace("Z", "+00:00"))
-        assert created < as_of
-        assert updated <= as_of

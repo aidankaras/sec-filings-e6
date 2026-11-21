@@ -1,18 +1,12 @@
-"""Market data access: daily bars and news.
+"""Market data access: daily bars.
 
-Two rules govern everything here, and both exist to keep published numbers
-comparable with each other.
-
-The first is the feed rule. The data plan serves the consolidated tape for every
-window except one ending on the current session, which it refuses outright.
-Falling back to a single-venue feed for recent windows would mean an event's
-label depended on when it happened to be computed, so recent windows are not
-requested at all: resolution waits a day and every price comes from one tape.
-
-The second is the evidence rule. An article informs a decision only if it
-existed beforehand, and only if it has not been revised since. A revision can
-carry information that did not exist at the decision point, and the revised text
-is what the API returns.
+One rule governs everything here, and it exists to keep published numbers
+comparable with each other: the feed rule. The data plan serves the
+consolidated tape for every window except one ending on the current session,
+which it refuses outright. Falling back to a single-venue feed for recent
+windows would mean an event's label depended on when it happened to be
+computed, so recent windows are not requested at all: resolution waits a day
+and every price comes from one tape.
 """
 
 from __future__ import annotations
@@ -36,7 +30,6 @@ from arbiter.config import get_settings
 from arbiter.ingestion.timestamps import SEC_TIMEZONE
 
 BARS_ENDPOINT = "https://data.alpaca.markets/v2/stocks/bars"
-NEWS_ENDPOINT = "https://data.alpaca.markets/v1beta1/news"
 
 #: The consolidated feed. Never substituted, including when it refuses a window.
 CONSOLIDATED_FEED = "sip"
@@ -71,15 +64,6 @@ def tradeable_symbol(value: object) -> str | None:
     if _TRADEABLE_SYMBOL.match(text) and text not in _PLACEHOLDER_SYMBOLS:
         return text
     return None
-
-
-def is_tradeable_symbol(value: object) -> bool:
-    """Report whether a value is a symbol this project can price.
-
-    Prefer `tradeable_symbol` anywhere the symbol is then stored or sent: this
-    answers the question without handing back the form the answer was based on.
-    """
-    return tradeable_symbol(value) is not None
 
 
 class MissingCredentialsError(RuntimeError):
@@ -399,53 +383,3 @@ def daily_bars_tolerating_gaps(
         )
         raise SystemicRejectionError(msg)
     return collected
-
-
-def recent_news(
-    symbol: str, start: datetime, as_of: datetime, limit: int = 50
-) -> list[dict[str, Any]]:
-    """Fetch news for one symbol and return only what predates `as_of` unrevised.
-
-    Filtering happens here rather than at the call site, so no caller can hold a
-    list of articles that includes evidence postdating the event.
-
-    Raises:
-        MissingCredentialsError: no market data credentials are configured.
-        httpx.HTTPStatusError: the service rejected the request.
-    """
-    response = httpx.get(
-        NEWS_ENDPOINT,
-        params={
-            "symbols": symbol,
-            "start": start.isoformat().replace("+00:00", "Z"),
-            "end": as_of.isoformat().replace("+00:00", "Z"),
-            "limit": limit,
-        },
-        headers=_credentials(),
-        timeout=60,
-    )
-    response.raise_for_status()
-    payload: dict[str, Any] = response.json()
-    articles: list[dict[str, Any]] = payload.get("news") or []
-    return usable_news(articles, as_of=as_of)
-
-
-def _instant(raw: str) -> datetime:
-    """Parse an API timestamp into a timezone-aware instant."""
-    return datetime.fromisoformat(raw.replace("Z", "+00:00"))
-
-
-def usable_news(articles: list[dict[str, Any]], as_of: datetime) -> list[dict[str, Any]]:
-    """Return the articles that were available, unrevised, before `as_of`.
-
-    An article is excluded when it was published at or after the event, and also
-    when it has been edited since: the API returns current text, so a later
-    revision would place information in the packet that did not exist when the
-    forecast was made.
-    """
-    return [
-        article
-        for article in articles
-        if _instant(str(article["created_at"])) < as_of
-        and _instant(str(article["updated_at"])) <= as_of
-    ]
