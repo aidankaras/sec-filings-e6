@@ -4,6 +4,7 @@ Each test parses the SVG rather than matching its text, so a change in
 formatting cannot pass for a change in content or hide one.
 """
 
+import itertools
 import math
 import re
 import xml.etree.ElementTree as ElementTree
@@ -172,3 +173,68 @@ def test_a_band_realising_outside_its_forecast_range_stays_on_the_canvas():
     for circle in root.iter(f"{SVG}circle"):
         radius = float(circle.attrib["r"])
         assert radius <= float(circle.attrib["cy"]) <= height - radius
+
+
+def _sixty_days() -> Evaluation:
+    """Sixty scored days with a narrow band, the shape of the published report."""
+    start = date(2026, 6, 15).toordinal()
+    daily = {date.fromordinal(start + index): 0.3 * math.sin(index) for index in range(60)}
+    return replace(
+        _evaluation(),
+        ic=ICSummary(
+            mean=0.0285, standard_error=0.0187, t_statistic=1.52, days=60, observations=3909
+        ),
+        daily_ic=daily,
+        test_days=sorted(daily),
+    )
+
+
+def _bar_edges(path: str) -> tuple[float, float]:
+    """The left edge is where the path starts; the right is where it returns down."""
+    left = float(re.findall(r"M([\d.]+),", path)[0])
+    right = float(re.findall(r" ([\d.]+),[\d.]+ V[\d.]+ Z", path)[0])
+    return left, right
+
+
+def test_bars_do_not_overlap_when_many_days_are_drawn():
+    bars = _bars(_parse(render_baseline_figure(_sixty_days())))
+    edges = sorted(_bar_edges(path) for path in bars.values())
+
+    assert len(edges) == 60
+    for (_, right), (next_left, _) in itertools.pairwise(edges):
+        assert right < next_left
+
+
+def _axis_labels(root: ElementTree.Element) -> list[ElementTree.Element]:
+    return [
+        text
+        for text in root.iter(f"{SVG}text")
+        if text.text and re.fullmatch(r"[A-Z][a-z]{2} \d{1,2}", text.text)
+    ]
+
+
+def test_date_labels_do_not_collide_when_many_days_are_drawn():
+    labels = _axis_labels(_parse(render_baseline_figure(_sixty_days())))
+    xs = [float(label.attrib["x"]) for label in labels]
+
+    assert len(xs) >= 3
+    assert all(later - earlier >= 40 for earlier, later in itertools.pairwise(xs))
+
+
+def test_every_day_is_labelled_when_there_is_room():
+    labels = _axis_labels(_parse(render_baseline_figure(_evaluation())))
+
+    assert len(labels) == len(DAILY)
+
+
+def test_band_labels_stay_clear_of_the_mean_label_when_the_band_is_narrow():
+    root = _parse(render_baseline_figure(_sixty_days()))
+    ys = {
+        text.text: float(text.attrib["y"])
+        for text in root.iter(f"{SVG}text")
+        if text.text and (text.text.startswith("mean ") or text.text.endswith(" SE"))
+    }
+
+    (mean,) = (y for label, y in ys.items() if label.startswith("mean "))
+    assert ys["+2 SE"] <= mean - 12
+    assert ys["-2 SE"] >= mean + 12
